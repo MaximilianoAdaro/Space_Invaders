@@ -6,7 +6,6 @@ public class Alien extends Sprite {
     private final String alienImg = "src/images/alien.png";
 
 
-
     public Alien(int x, int y) {
 
         initAlien(x, y);
