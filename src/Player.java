@@ -9,6 +9,12 @@ public class Player extends Sprite implements Commons {
 
     private final String playerImg = "src/images/player.png";
     private int width;
+    private int lives;
+
+
+    public Player(int lives) {
+        this.lives = 3;
+    }
 
     public Player() {
 
