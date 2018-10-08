@@ -7,7 +7,7 @@ public class Alien extends Sprite {
 
 
 
-    public Alien(int x, int y) {
+    public (int x, int y) {
 
         initAlien(x, y);
     }
