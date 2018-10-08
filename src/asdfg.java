@@ -6,6 +6,7 @@ public class asdfg {
         this.hello = hello;
     }
 
-
-
+    public String getHello() {
+        return hello;
+    }
 }
