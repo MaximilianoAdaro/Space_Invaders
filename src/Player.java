@@ -11,11 +11,6 @@ public class Player extends Sprite implements Commons {
     private int width;
     private int lives;
 
-
-    public Player(int lives) {
-        this.lives = 3;
-    }
-
     public Player() {
 
         initPlayer();

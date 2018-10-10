@@ -1,6 +1,6 @@
 import javax.swing.ImageIcon;
 
-public class Alien extends Sprite {
+public class Alien extends Sprite {  //vamos a tener que implementar Commons
 
     private Bomb bomb;
     private final String alienImg = "src/images/alien.png";
