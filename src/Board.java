@@ -28,16 +28,11 @@ public class Board extends JPanel implements Runnable, Commons {
 
     private boolean ingame = true;
     private final String explImg = "src/images/explosion.png";
-    private String message = "Game Over stupid";
+    private String message = "Game Over";
 
     private Thread animator;
 
     public Board() {
-
-        initBoard();
-    }
-
-    private void initBoard() {
 
         addKeyListener(new TAdapter());
         setFocusable(true);

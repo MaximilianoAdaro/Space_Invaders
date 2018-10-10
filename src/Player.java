@@ -14,6 +14,11 @@ public class Player extends Sprite implements Commons {
 
     public Player() {
 
+        initPlayer();
+    }
+
+    private void initPlayer() {
+
         ImageIcon ii = new ImageIcon(playerImg);
 
         width = ii.getImage().getWidth(null);
@@ -21,6 +26,8 @@ public class Player extends Sprite implements Commons {
         setImage(ii.getImage());
         setX(START_X);
         setY(START_Y);
+
+        lives=3;
     }
 
     public void act() {
