@@ -11,13 +11,7 @@ public class Player extends Sprite implements Commons {
     private int width;
     private int lives;
 
-
     public Player() {
-
-        initPlayer();
-    }
-
-    private void initPlayer() {
 
         ImageIcon ii = new ImageIcon(playerImg);
 
@@ -27,7 +21,17 @@ public class Player extends Sprite implements Commons {
         setX(START_X);
         setY(START_Y);
 
-        lives=3;
+        lives =3;
+    }
+
+
+    public void getHit()
+    {
+        lives = lives-1;
+        if (lives == 0)
+        {
+            die();
+        }
     }
 
     public void act() {
