@@ -12,16 +12,7 @@ public class Player extends Sprite implements Commons {
     private int lives;
 
 
-    public Player(int lives) {
-        this.lives = 3;
-    }
-
     public Player() {
-
-        initPlayer();
-    }
-
-    private void initPlayer() {
 
         ImageIcon ii = new ImageIcon(playerImg);
 
