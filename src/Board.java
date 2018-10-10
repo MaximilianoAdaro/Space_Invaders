@@ -28,7 +28,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
     private boolean ingame = true;
     private final String explImg = "src/images/explosion.png";
-    private String message = "Game Over";
+    private String message = "Game Over stupid";
 
     private Thread animator;
 
@@ -158,7 +158,7 @@ public class Board extends JPanel implements Runnable, Commons {
         g.setColor(Color.black);
         g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
 
-        g.setColor(new Color(0, 32, 48));
+        g.setColor(new Color(112, 106, 37));
         g.fillRect(50, BOARD_WIDTH / 2 - 30, BOARD_WIDTH - 100, 50);
         g.setColor(Color.white);
         g.drawRect(50, BOARD_WIDTH / 2 - 30, BOARD_WIDTH - 100, 50);
@@ -199,8 +199,7 @@ public class Board extends JPanel implements Runnable, Commons {
                             && shotX <= (alienX + ALIEN_WIDTH)
                             && shotY >= (alienY)
                             && shotY <= (alienY + ALIEN_HEIGHT)) {
-                        ImageIcon ii
-                                = new ImageIcon(explImg);
+                        ImageIcon ii = new ImageIcon(explImg);
                         alien.setImage(ii.getImage());
                         alien.setDying(true);
                         deaths++;
@@ -346,6 +345,9 @@ public class Board extends JPanel implements Runnable, Commons {
         gameOver();
     }
 
+
+
+    //clase que no hay que tocar TAdapter
     private class TAdapter extends KeyAdapter {
 
         @Override

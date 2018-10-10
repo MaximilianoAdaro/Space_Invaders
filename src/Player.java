@@ -12,10 +12,9 @@ public class Player extends Sprite implements Commons {
     private int lives;
 
 
-   /* public Player(int lives) {
+    public Player(int lives) {
         this.lives = 3;
     }
-    */
 
     public Player() {
 
@@ -31,29 +30,18 @@ public class Player extends Sprite implements Commons {
         setImage(ii.getImage());
         setX(START_X);
         setY(START_Y);
-        this.lives = 3;
     }
 
     public void act() {
 
         x += dx;
-        //x es la posicion
-        //dx la velocidad
+
         if (x <= 2) {
             x = 2;
         }
 
         if (x >= BOARD_WIDTH - 2 * width) {
             x = BOARD_WIDTH - 2 * width;
-        }
-    }
-
-    public void getHit()
-    {
-        lives = lives -1;
-        if (lives == 0)
-        {
-            die();
         }
     }
 
