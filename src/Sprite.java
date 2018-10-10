@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.Image;
 
 public class Sprite { //personaje

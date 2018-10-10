@@ -100,6 +100,9 @@ public class Board extends JPanel implements Runnable, Commons {
         if (player.isDying()) {
 
             player.die();
+            ImageIcon ii = new ImageIcon(explImg);
+            player.setImage(ii.getImage());
+
             ingame = false;
         }
     }
@@ -111,6 +114,7 @@ public class Board extends JPanel implements Runnable, Commons {
             g.drawImage(shot.getImage(), shot.getX(), shot.getY(), this);
         }
     }
+
 
     public void drawBombing(Graphics g) {
 
@@ -173,6 +177,11 @@ public class Board extends JPanel implements Runnable, Commons {
 
             ingame = false;
             message = "Game won!";
+        }
+
+        if (player.isVisible()== false)
+        {
+            ingame = false;
         }
 
         // player
@@ -290,11 +299,9 @@ public class Board extends JPanel implements Runnable, Commons {
                         && bombX <= (playerX + PLAYER_WIDTH)
                         && bombY >= (playerY)
                         && bombY <= (playerY + PLAYER_HEIGHT)) {
-                    ImageIcon ii
-                            = new ImageIcon(explImg);
-                    player.setImage(ii.getImage());
-                    player.setDying(true);
+                    ImageIcon ii = new ImageIcon(explImg);
                     b.setDestroyed(true);
+                    player.getHit();
                 }
             }
 

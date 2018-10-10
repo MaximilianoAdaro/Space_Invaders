@@ -21,7 +21,7 @@ public class Player extends Sprite implements Commons {
         setX(START_X);
         setY(START_Y);
 
-        lives =3;
+        lives = 3;
     }
 
 
@@ -30,7 +30,7 @@ public class Player extends Sprite implements Commons {
         lives = lives-1;
         if (lives == 0)
         {
-            die();
+            setDying(true);
         }
     }
 
