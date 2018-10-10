@@ -10,6 +10,8 @@ public class Player extends Sprite implements Commons {
     private final String playerImg = "src/images/player.png";
     private int width;
     private int lives;
+    //private int shield = 100;
+    //private int shieldRemaining = 4 ;
 
     public Player() {
 
@@ -27,6 +29,10 @@ public class Player extends Sprite implements Commons {
 
     public void getHit()
     {
+       // if (shield ==0 && shieldRemaining ==0)
+        //{
+
+        //}
         lives = lives-1;
         if (lives == 0)
         {
@@ -37,6 +43,8 @@ public class Player extends Sprite implements Commons {
     public void act() {
 
         x += dx;
+        // x es posicion
+        //dx es velocidad
 
         if (x <= 2) {
             x = 2;
