@@ -8,11 +8,6 @@ public class Alien extends Sprite {  //vamos a tener que implementar Commons
 
     public Alien(int x, int y) {
 
-        initAlien(x, y);
-    }
-
-    private void initAlien(int x, int y) {
-
         this.x = x;
         this.y = y;
 
