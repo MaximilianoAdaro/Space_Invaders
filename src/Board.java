@@ -356,7 +356,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
             //shields
 
-               Iterator ti = shields.iterator();
+               //Iterator ti = shields.iterator();
 
                 for (Shield shield : shields) {
                     int shieldX = shield.getX();
