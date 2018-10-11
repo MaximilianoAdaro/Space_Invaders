@@ -10,6 +10,7 @@ public class Sprite { //personaje
     protected int y;
     protected boolean dying;
     protected int dx;
+    protected int dy; //velocidad de la bomba cayendo en Y
     private ArrayList<Level> levels = new ArrayList<> (  );
 
     public Sprite() {
@@ -71,4 +72,5 @@ public class Sprite { //personaje
 
         return this.dying;
     }
+
 }

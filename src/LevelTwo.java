@@ -1,22 +1,43 @@
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
+
 public class LevelTwo extends Level {
 
-    public LevelTwo(Bomb bomb, Shot shot, Alien alien, int numberOfLevel, int live) {
-        super ( bomb, shot, alien, numberOfLevel = 2, live );
+    public LevelTwo(Bomb bomb, ArrayList<Alien> aliens, int numberOfLevel) {
+        super ( bomb, aliens, numberOfLevel );
     }
 
     @Override
-    void velocidadBomb() {
-
-        bomb.y = bomb.y + 1;
+    void speedBomb() {
 
 
+
+
+/*            if (!b.isDestroyed()) {
+
+                b.setY(b.getY() + 1);
+
+                if (b.getY() >= GROUND - BOMB_HEIGHT) {
+                    b.setDestroyed(true);
+                }
+            }
+        }
+
+
+   */
     }
 
     @Override
-    void velocidadAlien() {
+    void speedAlien() {
 
-        alien.x = alien.x + 1;
-        alien.y = alien.y + 1;
+        for (Alien als: aliens) {
+
+            als.act ( 3 );
+
+
+        }
 
     }
 }

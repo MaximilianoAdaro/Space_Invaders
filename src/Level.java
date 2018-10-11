@@ -1,28 +1,31 @@
+import java.util.ArrayList;
+
 public abstract class Level {
 
     Bomb bomb;
-    Shot shot;
-    Alien alien;
+    ArrayList<Alien> aliens = new ArrayList<> (  );
     int numberOfLevel;
-    int live;
-    Board board;
+   // Board board;
 
 
-    public Level(Bomb bomb, Shot shot, Alien alien, int numberOfLevel, int live) {
+    public Level(Bomb bomb, ArrayList<Alien> aliens, int numberOfLevel) {
         this.bomb = bomb;
-        this.shot = shot;
-        this.alien = alien;
+        this.aliens = aliens;
         this.numberOfLevel = numberOfLevel;
-        this.live = live;
     }
 
-    abstract void velocidadBomb();
+    abstract void speedBomb();
 
-    abstract void velocidadAlien();
+    abstract void speedAlien();
+
+    public void levelUp(){
+
+        numberOfLevel++;
+    }
 
     //maximo nivel permitido es cinco
 
-    private void maxLevel(int numberOfLevel){
+    /* private void maxLevel(int numberOfLevel){
 
         if (numberOfLevel == 5 && board.isIngame ()) {
 
@@ -31,6 +34,8 @@ public abstract class Level {
         }
 
     }
+*/
+
 
     public int getNumberOfLevel() {
         return numberOfLevel;
