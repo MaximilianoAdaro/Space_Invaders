@@ -20,6 +20,10 @@ public class Board extends JPanel implements Runnable, Commons {
     private ArrayList<Alien> aliens;
     private Player player;
     private Shot shot;
+    private ArrayList<Shield> shields;
+
+    private final int SHIELD_INIT_X = 40;
+    private final int SHIELD_INIT_Y = 200;
 
     private final int ALIEN_INIT_X = 150;
     private final int ALIEN_INIT_Y = 5;
@@ -62,6 +66,14 @@ public class Board extends JPanel implements Runnable, Commons {
             }
         }
 
+        shields = new ArrayList<>();
+
+        for (int i =0; i<4;i++)
+        {
+            Shield shield = new Shield(SHIELD_INIT_X+40*(2*i));
+            shields.add(shield);
+        }
+
         player = new Player();
         shot = new Shot();
 
@@ -88,6 +100,18 @@ public class Board extends JPanel implements Runnable, Commons {
                 alien.die();
             }
         }
+    }
+
+
+    public void drawShields(Graphics g)
+    {   Iterator it = shields.iterator();
+
+    for (Shield shield : shields) {
+        if (shield.isVisible()){
+
+            g.drawImage(shield.getImage(),shield.getX(),shield.getY(),this);
+        }
+    }
     }
 
     public void drawPlayer(Graphics g) {
@@ -142,6 +166,7 @@ public class Board extends JPanel implements Runnable, Commons {
             g.drawLine(0, GROUND, BOARD_WIDTH, GROUND);
             drawAliens(g);
             drawPlayer(g);
+            drawShields(g);
             drawShot(g);
             drawBombing(g);
         }
@@ -154,8 +179,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
         g.setColor(Color.white);
         g.drawString("Lives: " + player.getLives(),1,10);
-        g.drawString("Shields Remaining: " + player.getShieldRemaining(),50,10);
-        g.drawString("Shields: " + player.getShield(),180,10);
+        g.drawString("Score: ",50,10);
 
 
     }
@@ -181,12 +205,6 @@ public class Board extends JPanel implements Runnable, Commons {
                 BOARD_WIDTH / 2);
     }
 
-
-    /*public void resources() {
-        String lives = "Lives";
-        String Shields = "Shields";
-        String remainingShields = "Remaining Shields";
-    }*/
 
     public void animationCycle() {
 
@@ -309,6 +327,7 @@ public class Board extends JPanel implements Runnable, Commons {
             int playerX = player.getX();
             int playerY = player.getY();
 
+
             if (player.isVisible() && !b.isDestroyed()) {
 
                 if (bombX >= (playerX)
@@ -321,7 +340,28 @@ public class Board extends JPanel implements Runnable, Commons {
                 }
             }
 
-            if (!b.isDestroyed()) {
+               Iterator ti = shields.iterator();
+
+                for (Shield shield : shields) {
+                    int shieldX = shield.getX();
+                    int shieldY = shield.getY();
+
+                    if (shield.isVisible() && !b.isDestroyed()){
+                        if(bombX >= (shieldX)
+                                && bombX <= (shieldX + SHIELD_WIDTH)
+                                && bombY >=(shieldY)
+                                && bombY <= (shieldY + SHIELD_HEIGHT)){
+                            b.setDestroyed(true);
+                            shield.getHit();
+                        }
+                    }
+                    {
+
+                        }
+                    }
+
+
+                        if (!b.isDestroyed()) {
 
                 b.setY(b.getY() + 1);
 
@@ -342,7 +382,6 @@ public class Board extends JPanel implements Runnable, Commons {
         while (ingame) {
 
             repaint();
-            //resources();
             animationCycle();
 
             timeDiff = System.currentTimeMillis() - beforeTime;
