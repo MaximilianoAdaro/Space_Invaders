@@ -213,7 +213,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
 
     public void animationCycle() {
-        message = "Game Over";
+        message = "Game Over :D";
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level ==5)
         {
             message = "Game Won";
