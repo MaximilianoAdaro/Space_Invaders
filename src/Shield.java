@@ -26,6 +26,11 @@ public class Shield extends Sprite
         return width;
     }
 
+    public int getRemainingShield()
+    {
+        return shieldRemaining;
+    }
+
     public void getHit()
     {
         if (shieldRemaining != 0)
