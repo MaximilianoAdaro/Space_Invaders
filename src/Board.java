@@ -19,9 +19,12 @@ public class Board extends JPanel implements Runnable, Commons {
 
     private Dimension d;
     private ArrayList<Alien> aliens;
-    private Player player;
+    private Player player= new Player();;
     private Shot shot;
     private ArrayList<Shield> shields;
+
+    public int DELAY = 17;
+    public int level = 1;
 
     private final int SHIELD_INIT_X = 40;
     private final int SHIELD_INIT_Y = 200;
@@ -31,10 +34,11 @@ public class Board extends JPanel implements Runnable, Commons {
     private int direction = -1;
     private int deaths = 0;
 
+
+
     private boolean ingame = true;
     private final String explImg = "src/images/explosion.png";
     private String message = "Game Over";
-    private Level level;
 
     private Thread animator;
 
@@ -179,9 +183,9 @@ public class Board extends JPanel implements Runnable, Commons {
         FontMetrics met = this.getFontMetrics(small);
 
         g.setColor(Color.white);
-        g.drawString("Lives: " + player.getLives(),1,10);
-        g.drawString("Score: ",50,10);
-        //g.drawString ("Level" + level.numberOfLevel,80,10 );
+        g.drawString("Lives: " + player.getLives(),50,10);
+        g.drawString("Score: ",100,10);
+        g.drawString("Level: ",1,10);
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
@@ -210,14 +214,20 @@ public class Board extends JPanel implements Runnable, Commons {
 
 
     public void animationCycle() {
-
-        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
-
-            level.numberOfLevel++;
-
-            message = "Level Up!";
-
+        message = "Game Over :D XD";
+        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level ==5)
+        {
+            message = "Game Won";
+            ingame = false;
         }
+
+        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level <=5 ) {
+            deaths = 0;
+            level = level +1;
+            message = "Level Up";
+            DELAY = DELAY -2;
+            gameInit();
+            }
 
         if (!player.isVisible())
         {
@@ -441,14 +451,5 @@ public class Board extends JPanel implements Runnable, Commons {
                 }
             }
         }
-    }
-
-
-    public boolean isIngame() {
-        return ingame;
-    }
-
-    public void setIngame(boolean ingame) {
-        this.ingame = ingame;
     }
 }
