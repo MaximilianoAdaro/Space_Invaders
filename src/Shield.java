@@ -5,7 +5,7 @@ public class Shield extends Sprite
 
     int shield = 100;
 
-    private final int START_Y = 230;
+    private final int START_Y = 200;
     private final String ShieldImg = "src/images/Brickwall.png";
     private int width;
     private int lives;
@@ -35,7 +35,9 @@ public class Shield extends Sprite
         }
     }
 
-
+    public int getSTART_Y(){
+        return START_Y;
+    }
     public boolean isVisible()
     {
         return visible;
