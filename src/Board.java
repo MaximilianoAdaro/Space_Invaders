@@ -171,6 +171,13 @@ public class Board extends JPanel implements Runnable, Commons {
                 BOARD_WIDTH / 2);
     }
 
+
+    /*public void resources() {
+        String lives = "Lives";
+        String Shields = "Shields";
+        String remainingShields = "Remaining Shields";
+    }*/
+
     public void animationCycle() {
 
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
@@ -183,7 +190,6 @@ public class Board extends JPanel implements Runnable, Commons {
         {
             ingame = false;
         }
-
         // player
         player.act();
 
@@ -326,6 +332,7 @@ public class Board extends JPanel implements Runnable, Commons {
         while (ingame) {
 
             repaint();
+            //resources();
             animationCycle();
 
             timeDiff = System.currentTimeMillis() - beforeTime;
