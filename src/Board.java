@@ -62,7 +62,7 @@ public class Board extends JPanel implements Runnable, Commons {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 6; j++) {
 
-                Alien alien = new Alien(ALIEN_INIT_X + 18 * j, ALIEN_INIT_Y + 18 * i);
+                Alien alien = new Alien(ALIEN_INIT_X + 35 * j, ALIEN_INIT_Y + 18 * i);
                 aliens.add(alien);
             }
         }
@@ -178,8 +178,9 @@ public class Board extends JPanel implements Runnable, Commons {
         FontMetrics met = this.getFontMetrics(small);
 
         g.setColor(Color.white);
-        g.drawString("Lives: " + player.getLives(),1,10);
-        g.drawString("Score: ",50,10);
+        g.drawString("Lives: " + player.getLives(),50,10);
+        g.drawString("Score: ",100,10);
+        g.drawString("Level: ",1,10);
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
@@ -324,7 +325,7 @@ public class Board extends JPanel implements Runnable, Commons {
             }
 
             int bombX = b.getX();
-            int bombY = b.getY();
+            int bombY = b.getY();// hitbox bomb
             int playerX = player.getX();
             int playerY = player.getY();
 
@@ -340,6 +341,8 @@ public class Board extends JPanel implements Runnable, Commons {
                     player.getHit();
                 }
             }
+
+            //shields
 
                Iterator ti = shields.iterator();
 
