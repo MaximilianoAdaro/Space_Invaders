@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -171,8 +172,7 @@ public class Board extends JPanel implements Runnable, Commons {
             drawBombing(g);
         }
 
-        //Toolkit.getDefaultToolkit().sync();
-        //g.dispose();
+
 
         Font small = new Font("Times New Roman",Font.BOLD,8);
         FontMetrics met = this.getFontMetrics(small);
@@ -181,7 +181,8 @@ public class Board extends JPanel implements Runnable, Commons {
         g.drawString("Lives: " + player.getLives(),1,10);
         g.drawString("Score: ",50,10);
 
-
+        Toolkit.getDefaultToolkit().sync();
+        g.dispose();
     }
 
     public void gameOver() {
@@ -344,12 +345,13 @@ public class Board extends JPanel implements Runnable, Commons {
 
                 for (Shield shield : shields) {
                     int shieldX = shield.getX();
-                    int shieldY = shield.getY();
+                    int shieldY = shield.getSTART_Y();
+
 
                     if (shield.isVisible() && !b.isDestroyed()){
                         if(bombX >= (shieldX)
                                 && bombX <= (shieldX + SHIELD_WIDTH)
-                                && bombY >=(shieldY)
+                                && bombY >=(shieldY - SHIELD_HEIGHT)
                                 && bombY <= (shieldY + SHIELD_HEIGHT)){
                             b.setDestroyed(true);
                             shield.getHit();
