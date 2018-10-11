@@ -33,6 +33,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private boolean ingame = true;
     private final String explImg = "src/images/explosion.png";
     private String message = "Game Over";
+    private Level level;
 
     private Thread animator;
 
@@ -180,6 +181,7 @@ public class Board extends JPanel implements Runnable, Commons {
         g.setColor(Color.white);
         g.drawString("Lives: " + player.getLives(),1,10);
         g.drawString("Score: ",50,10);
+        g.drawString ("Level" + level.numberOfLevel,80,10 );
 
 
     }
@@ -210,8 +212,10 @@ public class Board extends JPanel implements Runnable, Commons {
 
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
 
-            ingame = false;
-            message = "Game won!";
+            level.numberOfLevel++;
+
+            message = "Level Up!";
+
         }
 
         if (!player.isVisible())
@@ -433,5 +437,14 @@ public class Board extends JPanel implements Runnable, Commons {
                 }
             }
         }
+    }
+
+
+    public boolean isIngame() {
+        return ingame;
+    }
+
+    public void setIngame(boolean ingame) {
+        this.ingame = ingame;
     }
 }
