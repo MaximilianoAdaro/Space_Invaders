@@ -19,11 +19,12 @@ public class Board extends JPanel implements Runnable, Commons {
 
     private Dimension d;
     private ArrayList<Alien> aliens;
-    private Player player;
+    private Player player= new Player();;
     private Shot shot;
     private ArrayList<Shield> shields;
 
-    public static int DELAY = 17;
+    public int DELAY = 17;
+    public int level = 1;
 
     private final int SHIELD_INIT_X = 40;
     private final int SHIELD_INIT_Y = 200;
@@ -32,6 +33,8 @@ public class Board extends JPanel implements Runnable, Commons {
     private final int ALIEN_INIT_Y = 5;
     private int direction = -1;
     private int deaths = 0;
+
+
 
     private boolean ingame = true;
     private final String explImg = "src/images/explosion.png";
@@ -77,7 +80,6 @@ public class Board extends JPanel implements Runnable, Commons {
             shields.add(shield);
         }
 
-        player = new Player();
         shot = new Shot();
 
         if (animator == null || !ingame) {
@@ -182,7 +184,7 @@ public class Board extends JPanel implements Runnable, Commons {
         g.setColor(Color.white);
         g.drawString("Lives: " + player.getLives(),50,10);
         g.drawString("Score: ",100,10);
-        g.drawString("Level: ",1,10);
+        g.drawString("Level: " + level,1,10);
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
@@ -211,13 +213,20 @@ public class Board extends JPanel implements Runnable, Commons {
 
 
     public void animationCycle() {
-
-        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
-
+        message = "Game Over";
+        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level ==5)
+        {
+            message = "Game Won";
             ingame = false;
+        }
+
+        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level <=5 ) {
+            deaths = 0;
+            level = level +1;
             message = "Level Up";
             DELAY = DELAY -2;
-        }
+            gameInit();
+            }
 
         if (!player.isVisible())
         {
