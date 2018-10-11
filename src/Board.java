@@ -146,8 +146,18 @@ public class Board extends JPanel implements Runnable, Commons {
             drawBombing(g);
         }
 
-        Toolkit.getDefaultToolkit().sync();
-        g.dispose();
+        //Toolkit.getDefaultToolkit().sync();
+        //g.dispose();
+
+        Font small = new Font("Times New Roman",Font.BOLD,8);
+        FontMetrics met = this.getFontMetrics(small);
+
+        g.setColor(Color.white);
+        g.drawString("Lives: " + player.getLives(),1,10);
+        g.drawString("Shields Remaining: " + player.getShieldRemaining(),50,10);
+        g.drawString("Shields: " + player.getShield(),180,10);
+
+
     }
 
     public void gameOver() {
