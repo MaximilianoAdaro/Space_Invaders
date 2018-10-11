@@ -23,6 +23,8 @@ public class Board extends JPanel implements Runnable, Commons {
     private Shot shot;
     private ArrayList<Shield> shields;
 
+    public static int DELAY = 17;
+
     private final int SHIELD_INIT_X = 40;
     private final int SHIELD_INIT_Y = 200;
 
@@ -213,7 +215,8 @@ public class Board extends JPanel implements Runnable, Commons {
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
 
             ingame = false;
-            message = "Game won!";
+            message = "Level Up";
+            DELAY = DELAY -2;
         }
 
         if (!player.isVisible())
