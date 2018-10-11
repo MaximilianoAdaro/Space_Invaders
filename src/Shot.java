@@ -11,11 +11,6 @@ public class Shot extends Sprite {
 
     public Shot(int x, int y) {
 
-        initShot(x, y);
-    }
-
-    private void initShot(int x, int y) {
-
         ImageIcon ii = new ImageIcon(shotImg);
         setImage(ii.getImage());
 

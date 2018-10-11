@@ -126,7 +126,7 @@ public class Board extends JPanel implements Runnable, Commons {
             player.die();
             ImageIcon ii = new ImageIcon(explImg);
             player.setImage(ii.getImage());
-
+//hay que ver la bomba que no se printea
             ingame = false;
         }
     }
@@ -214,7 +214,7 @@ public class Board extends JPanel implements Runnable, Commons {
             message = "Game won!";
         }
 
-        if (player.isVisible()== false)
+        if (!player.isVisible())
         {
             ingame = false;
         }
