@@ -80,7 +80,6 @@ public class Board extends JPanel implements Runnable, Commons {
             shields.add(shield);
         }
 
-        player = new Player();
         shot = new Shot();
 
         if (animator == null || !ingame) {
@@ -183,9 +182,9 @@ public class Board extends JPanel implements Runnable, Commons {
         FontMetrics met = this.getFontMetrics(small);
 
         g.setColor(Color.white);
-        g.drawString("Lives: " + player.getLives(),1,10);
-        g.drawString("Score: ",50,10);
-        //g.drawString ("Level" + level.numberOfLevel,80,10 );
+        g.drawString("Lives: " + player.getLives(),50,10);
+        g.drawString("Score: ",100,10);
+        g.drawString("Level: " + level,1,10);
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
@@ -452,6 +451,4 @@ public class Board extends JPanel implements Runnable, Commons {
             }
         }
     }
-
-
 }

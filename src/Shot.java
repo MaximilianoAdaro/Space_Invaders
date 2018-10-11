@@ -6,6 +6,7 @@ public class Shot extends Sprite {
     private final int H_SPACE = 6;
     private final int V_SPACE = 1;
 
+
     public Shot() {
     }
 
@@ -22,4 +23,5 @@ public class Shot extends Sprite {
         setX(x + H_SPACE);
         setY(y - V_SPACE);
     }
+
 }
