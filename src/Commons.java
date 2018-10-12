@@ -1,9 +1,10 @@
 public interface Commons {
-
     public static final int BOARD_WIDTH = 358;
     public static final int BOARD_HEIGHT = 350;
     public static final int GROUND = 290;
     public static final int BOMB_HEIGHT = 5;
+    public static final int ALIEN_HEIGHT = 30;
+    public static final int ALIEN_WIDTH = 25;
     public static final int BORDER_RIGHT = 30;
     public static final int BORDER_LEFT = 5;
     public static final int GO_DOWN = 15;
@@ -13,14 +14,4 @@ public interface Commons {
     public static final int PLAYER_HEIGHT = 10;
     public static final int SHIELD_WIDTH = 25;
     public static final int SHIELD_HEIGHT = 8;
-
-    public static final int BIG_ALIEN_WIDTH = 12;
-    public static final int BIG_ALIEN_HEIGHT = 12;
-
-    public static final int MEDIUM_ALIEN_WIDTH = 9;
-    public static final int MEDIUM_ALIEN_HEIGHT = 9;
-
-    public static final int SMALL_ALIEN_WIDTH = 6;
-    public static final int SMALL_ALIEN_HEIGHT = 6;
-
 }

@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -326,10 +327,10 @@ public class Board extends JPanel implements Runnable, Commons {
 
         for (Alien alien: aliens) {
 
-            int shot = generator.nextInt(15);
+            int shots = generator.nextInt(15);
             Bomb b = alien.getBomb();
 
-            if (shot == CHANCE && alien.isVisible() && b.isDestroyed()) {
+            if (shots == CHANCE && alien.isVisible() && b.isDestroyed()) {
 
                 b.setDestroyed(false);
                 b.setX(alien.getX());
@@ -356,12 +357,13 @@ public class Board extends JPanel implements Runnable, Commons {
 
             //shields
 
-               Iterator ti = shields.iterator();
+               //Iterator ti = shields.iterator();
 
                 for (Shield shield : shields) {
                     int shieldX = shield.getX();
                     int shieldY = shield.getSTART_Y();
-
+                    int shotX = shot.getX();
+                    int shotY = shot.getY();
 
                     if (shield.isVisible() && !b.isDestroyed()){
                         if(bombX >= (shieldX)
@@ -372,10 +374,20 @@ public class Board extends JPanel implements Runnable, Commons {
                             shield.getHit();
                         }
                     }
-                    {
 
-                        }
+
+                    if(shotX >= shieldX && shield.isVisible()
+                            && shotX <=(shieldX + shield.getWidth())
+                            && shotY <=(shieldY + SHIELD_HEIGHT)
+                            && shotY > (shieldY)
+                            &&shot.isVisible())
+                    {
+                        System.out.println(shield.getRemainingShield());
+                        shield.getHit();
+                        shot.die();
                     }
+
+            }
 
 
                         if (!b.isDestroyed()) {

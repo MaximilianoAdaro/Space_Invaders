@@ -22,6 +22,15 @@ public class Shield extends Sprite
         setY(START_Y);
     }
 
+    public int getWidth(){
+        return width;
+    }
+
+    public int getRemainingShield()
+    {
+        return shieldRemaining;
+    }
+
     public void getHit()
     {
         if (shieldRemaining != 0)
