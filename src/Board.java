@@ -220,7 +220,7 @@ public class Board extends JPanel implements Runnable, Commons {
             ingame = false;
         }
 
-        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level <=5 ) {
+        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level <5 ) {
             deaths = 0;
             level = level +1;
             message = "Level Up";
