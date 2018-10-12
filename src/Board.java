@@ -85,8 +85,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
         shields = new ArrayList<>();
 
-        for (int i =0; i<4;i++)
-        {
+        for (int i =0; i<4;i++) {
             Shield shield = new Shield(SHIELD_INIT_X+40*(2*i));
             shields.add(shield);
         }

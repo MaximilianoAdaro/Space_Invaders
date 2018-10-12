@@ -2,16 +2,15 @@ import javax.swing.*;
 import java.awt.Image;
 import java.util.ArrayList;
 
-public class Sprite { //personaje
+public class Sprite { //mostra en la pantalla
 
     private boolean visible;
     private Image image;
-    protected int x;
-    protected int y;
-    protected boolean dying;
-    protected int dx;
+    int x;
+    int y;
+    private boolean dying;
+    int dx;
     protected int dy; //velocidad de la bomba cayendo en Y
-//    private ArrayList<Level> levels = new ArrayList<> (  );
 
     public Sprite() {
 
