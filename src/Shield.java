@@ -1,7 +1,6 @@
 import javax.swing.*;
 
-public class Shield extends Sprite
-{
+public class Shield extends Sprite {
 
     int shield = 100;
 
@@ -11,8 +10,7 @@ public class Shield extends Sprite
     private int lives;
     private int shieldRemaining = 100 ;
 
-    public Shield (int x)
-    {
+    public Shield (int x) {
         this.x = x;
 
         ImageIcon ii = new ImageIcon(ShieldImg);
@@ -25,20 +23,17 @@ public class Shield extends Sprite
         return width;
     }
 
-    public int getRemainingShield()
-    {
+    public int getRemainingShield() {
         return shieldRemaining;
     }
 
     public void getHit()
     {
-        if (shieldRemaining != 0)
-        {
-            shieldRemaining =  shieldRemaining - 2;
+        if (shieldRemaining != 0) {
+            shieldRemaining =- 2;
         }
 
-        if (shieldRemaining == 0)
-        {
+        if (shieldRemaining == 0) {
             die();
         }
     }
@@ -48,6 +43,7 @@ public class Shield extends Sprite
     }
 
 
-    public int getShield()
-    {return shieldRemaining;}
+    public int getShield() {
+        return shieldRemaining;
+    }
 }
