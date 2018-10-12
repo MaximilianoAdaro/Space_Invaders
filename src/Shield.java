@@ -27,8 +27,7 @@ public class Shield extends Sprite {
         return shieldRemaining;
     }
 
-    public void getHit()
-    {
+    public void getHit() {
         if (shieldRemaining != 0) {
             shieldRemaining -= 2;
         }
@@ -41,7 +40,6 @@ public class Shield extends Sprite {
     public int getSTART_Y(){
         return START_Y;
     }
-
 
     public int getShield() {
         return shieldRemaining;

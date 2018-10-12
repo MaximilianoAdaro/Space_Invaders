@@ -84,8 +84,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
         shields = new ArrayList<>();
 
-        for (int i =0; i<4;i++)
-        {
+        for (int i =0; i<4;i++) {
             Shield shield = new Shield(SHIELD_INIT_X+40*(2*i));
             shields.add(shield);
         }
@@ -100,48 +99,36 @@ public class Board extends JPanel implements Runnable, Commons {
     }
 
     public void drawAliens(Graphics g) {
-
         Iterator it = aliens.iterator();
-
         for (Alien alien: aliens) {
-
             if (alien.isVisible()) {
-
                 g.drawImage(alien.getImage(), alien.getX(), alien.getY(), this);
             }
-
             if (alien.isDying()) {
-
                 alien.die();
             }
         }
     }
 
 
-    public void drawShields(Graphics g)
-    {   Iterator it = shields.iterator();
-
-    for (Shield shield : shields) {
-        if (shield.isVisible()){
-
-            g.drawImage(shield.getImage(),shield.getX(),shield.getY(),this);
+    public void drawShields(Graphics g) {
+        Iterator it = shields.iterator();
+        for (Shield shield : shields) {
+            if (shield.isVisible()){
+                g.drawImage(shield.getImage(),shield.getX(),shield.getY(),this);
+            }
         }
-    }
     }
 
     public void drawPlayer(Graphics g) {
-
         if (player.isVisible()) {
-
             g.drawImage(player.getImage(), player.getX(), player.getY(), this);
         }
-
         if (player.isDying()) {
-
             player.die();
             ImageIcon ii = new ImageIcon(explImg);
             player.setImage(ii.getImage());
-//hay que ver la bomba que no se printea
+//hay que ver la explosion que no se printea
             ingame = false;
         }
     }
@@ -225,18 +212,20 @@ public class Board extends JPanel implements Runnable, Commons {
         g.setFont(small);
         g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message)) / 2,
                 BOARD_WIDTH / 2);
+        String score="Your score was: "+player.getPoints();
+        g.drawString(score, (BOARD_WIDTH - metr.stringWidth(score)) / 2-2,
+                BOARD_WIDTH/2+17);
     }
 
-
     public void animationCycle() {
-        message = "Game Over :D XD";
+        message = "Game Over";
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level ==5)
         {
             message = "Game Won";
             ingame = false;
         }
 
-        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level <=5 ) {
+        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level <5 ) {
             deaths = 0;
             level = level +1;
             message = "Level Up";
