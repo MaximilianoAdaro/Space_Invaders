@@ -183,12 +183,12 @@ public class Board extends JPanel implements Runnable, Commons {
         g.setFont(big);
         g.drawString("Lives: " + player.getLives(),1,305);
 
+        g.setColor(Color.green);
+        g.drawString("Level: " + level,150,303);
 
-        g.setFont(small);
         g.setColor(Color.white);
-        g.drawString("Score: " + player.getPoints(),200,303);
-        g.drawString("Level: " + level,65,303);
-
+        g.setFont(small);
+        g.drawString("Score: " + player.getPoints(),220,303);
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
@@ -228,7 +228,6 @@ public class Board extends JPanel implements Runnable, Commons {
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level <5 ) {
             deaths = 0;
             level = level +1;
-            message = "Level Up";
             DELAY = DELAY -2;
             gameInit();
             }
