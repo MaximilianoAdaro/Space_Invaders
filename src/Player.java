@@ -10,6 +10,7 @@ public class Player extends Sprite implements Commons {
     private final String playerImg = "src/images/player.png";
     private int width;
     private int lives;
+    private int points;
 
     public Player() {
         
@@ -36,6 +37,13 @@ public class Player extends Sprite implements Commons {
         return lives;
     }
 
+    public void addPoints(int amountOfPoints){
+        points+=amountOfPoints;
+    }
+
+    public int getPoints() {
+        return points;
+    }
 
     public void act() {
 

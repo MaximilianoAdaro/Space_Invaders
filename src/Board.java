@@ -271,6 +271,7 @@ public class Board extends JPanel implements Runnable, Commons {
                         alien.setImage(ii.getImage());
                         alien.setDying(true);
                         deaths++;
+                        player.addPoints(alien.getPoints());
                         shot.die();
                     }
                 }
