@@ -31,7 +31,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private final int SHIELD_INIT_Y = 200;
 
     private final int ALIEN_INIT_X = 150;
-    private final int ALIEN_INIT_Y = 20;
+    private final int ALIEN_INIT_Y = 5;
     private int direction = -1;
     private int deaths = 0;
 
@@ -194,13 +194,13 @@ public class Board extends JPanel implements Runnable, Commons {
 
         g.setColor(Color.red);
         g.setFont(big);
-        g.drawString("Lives: " + player.getLives(),50,12);
+        g.drawString("Lives: " + player.getLives(),1,305);
 
 
         g.setFont(small);
         g.setColor(Color.white);
-        g.drawString("Score: " + player.getPoints(),200,10);
-        g.drawString("Level: " + level,1,10);
+        g.drawString("Score: " + player.getPoints(),200,303);
+        g.drawString("Level: " + level,65,303);
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
