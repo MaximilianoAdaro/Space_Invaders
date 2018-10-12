@@ -5,8 +5,8 @@ public class Alien extends Sprite {  //vamos a tener que implementar Commons
     private Bomb bomb;
     private String alienImg;
 
-    AlienType alienType;
-    int points;
+    private AlienType alienType;
+    private int points;
 
 
     public Alien(int x, int y, AlienType typeOfAlien) {
@@ -35,5 +35,9 @@ public class Alien extends Sprite {  //vamos a tener que implementar Commons
 
     public AlienType getAlienType() {
         return alienType;
+    }
+
+    public int getPoints() {
+        return points;
     }
 }

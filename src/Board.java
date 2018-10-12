@@ -192,9 +192,9 @@ public class Board extends JPanel implements Runnable, Commons {
         Font small = new Font("Times New Roman",Font.BOLD,8);
         FontMetrics met = this.getFontMetrics(small);
 
-        g.setColor(Color.white);
+        g.setColor(Color.green);
         g.drawString("Lives: " + player.getLives(),50,10);
-        g.drawString("Score: ",100,10);
+        g.drawString("Score: " + player.getPoints(),100,10);
         g.drawString("Level: " + level,1,10);
 
         Toolkit.getDefaultToolkit().sync();
@@ -266,6 +266,7 @@ public class Board extends JPanel implements Runnable, Commons {
                         alien.setImage(ii.getImage());
                         alien.setDying(true);
                         deaths++;
+                        player.addPoints(alien.getPoints());
                         shot.die();
                     }
                 }

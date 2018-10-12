@@ -5,7 +5,7 @@ public class Shield extends Sprite {
     int shield = 100;
 
     private final int START_Y = 200;
-    private final String ShieldImg = "src/images/Brickwall.png";
+    private final String ShieldImg = "src/images/brickwall.png";
     private int width;
     private int lives;
     private int shieldRemaining = 100 ;
