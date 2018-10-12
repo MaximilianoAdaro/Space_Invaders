@@ -31,7 +31,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private final int SHIELD_INIT_Y = 200;
 
     private final int ALIEN_INIT_X = 150;
-    private final int ALIEN_INIT_Y = 5;
+    private final int ALIEN_INIT_Y = 20;
     private int direction = -1;
     private int deaths = 0;
 
@@ -179,12 +179,18 @@ public class Board extends JPanel implements Runnable, Commons {
 
 
 
-        Font small = new Font("Times New Roman",Font.BOLD,8);
-        FontMetrics met = this.getFontMetrics(small);
+        Font big = new Font("Times New Roman",Font.PLAIN,16);
+        Font small = new Font("Times New Roman",Font.BOLD,12);
+        FontMetrics met = this.getFontMetrics(big);
 
+        g.setColor(Color.red);
+        g.setFont(big);
+        g.drawString("Lives: " + player.getLives(),50,12);
+
+
+        g.setFont(small);
         g.setColor(Color.white);
-        g.drawString("Lives: " + player.getLives(),50,10);
-        g.drawString("Score: ",100,10);
+        g.drawString("Score: ",200,10);
         g.drawString("Level: " + level,1,10);
 
         Toolkit.getDefaultToolkit().sync();
