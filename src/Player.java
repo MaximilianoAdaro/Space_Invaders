@@ -29,7 +29,7 @@ public class Player extends Sprite implements Commons {
     {
         if (lives!= 0){lives = lives-1;}
 
-        if (lives == 0){setDying(true);}
+        if (lives == 0){die();}
     }
 
     public int getLives(){

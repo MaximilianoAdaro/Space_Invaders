@@ -10,7 +10,6 @@ public class Shield extends Sprite
     private int width;
     private int lives;
     private int shieldRemaining = 100 ;
-    private boolean visible = true;
 
     public Shield (int x)
     {
@@ -40,16 +39,12 @@ public class Shield extends Sprite
 
         if (shieldRemaining == 0)
         {
-            setDying(true);
+            die();
         }
     }
 
     public int getSTART_Y(){
         return START_Y;
-    }
-    public boolean isVisible()
-    {
-        return visible;
     }
 
 
