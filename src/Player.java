@@ -12,7 +12,7 @@ public class Player extends Sprite implements Commons {
     private int lives;
 
     public Player() {
-
+        
         ImageIcon ii = new ImageIcon(playerImg);
 
         width = ii.getImage().getWidth(null);

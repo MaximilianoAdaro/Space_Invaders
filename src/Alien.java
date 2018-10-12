@@ -3,19 +3,20 @@ import javax.swing.ImageIcon;
 public class Alien extends Sprite {  //vamos a tener que implementar Commons
 
     private Bomb bomb;
-    private final String alienImg = "src/images/alien.png";
-    private String typeOfAlien;
+    private String alienImg;
+
+    AlienType alienType;
+    int points;
 
 
-    public Alien(int x, int y) {
-
-        initAlien(x, y);
-    }
-
-    private void initAlien(int x, int y) {
+    public Alien(int x, int y, AlienType typeOfAlien) {
 
         this.x = x;
         this.y = y;
+        alienType=typeOfAlien;
+
+        alienImg=typeOfAlien.getImage();
+        points=typeOfAlien.getPoints();
 
         bomb = new Bomb(x, y);
         ImageIcon ii = new ImageIcon(alienImg);
@@ -32,5 +33,7 @@ public class Alien extends Sprite {  //vamos a tener que implementar Commons
         return bomb;
     }
 
-
+    public AlienType getAlienType() {
+        return alienType;
+    }
 }
