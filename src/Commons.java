@@ -4,7 +4,7 @@ public interface Commons {
     int BOARD_HEIGHT = 350;
     int GROUND = 290;
     int BOMB_HEIGHT = 5;
-    int ALIEN_HEIGHT = 30;
+    int ALIEN_HEIGHT = 15;
     int ALIEN_WIDTH = 25;
     int BORDER_RIGHT = 30;
     int BORDER_LEFT = 5;
@@ -14,5 +14,5 @@ public interface Commons {
     int PLAYER_WIDTH = 15;
     int PLAYER_HEIGHT = 10;
     int SHIELD_WIDTH = 25;
-    int SHIELD_HEIGHT = 8;
+    int SHIELD_HEIGHT = 20;
 }

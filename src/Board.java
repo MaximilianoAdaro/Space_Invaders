@@ -199,7 +199,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
         g.setFont(small);
         g.setColor(Color.white);
-        g.drawString("Score: ",200,10);
+        g.drawString("Score: " + player.getPoints(),200,10);
         g.drawString("Level: " + level,1,10);
 
         Toolkit.getDefaultToolkit().sync();

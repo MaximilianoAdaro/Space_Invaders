@@ -30,7 +30,7 @@ public class Shield extends Sprite {
     public void getHit()
     {
         if (shieldRemaining != 0) {
-            shieldRemaining =- 2;
+            shieldRemaining -= 2;
         }
 
         if (shieldRemaining == 0) {
