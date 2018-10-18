@@ -25,7 +25,12 @@ public class Board extends JPanel implements Runnable, Commons {
     private ArrayList<Shield> shields;
 
     public int DELAY = 17;
+    public int alienSpeed =1;
     public int level = 1;
+
+    public int ufoTimer = (int) (Math.random() * (60 - 45) + 45);
+    public int ufoPoints = (int) (Math.random() * (300 - 50) + 50);
+
 
     private final int SHIELD_INIT_X = 40;
     private final int SHIELD_INIT_Y = 200;
@@ -35,6 +40,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private int direction = -1;
     private int deaths = 0;
 
+    private int shieldsAmount = 4;
 
 
     private boolean ingame = true;
@@ -63,6 +69,9 @@ public class Board extends JPanel implements Runnable, Commons {
 
     public void gameInit() {
 
+        System.out.println(ufoTimer);
+        System.out.println(ufoPoints);
+
         aliens = new ArrayList<>();
 
         for (int i = 0; i < 4; i++) {
@@ -84,7 +93,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
         shields = new ArrayList<>();
 
-        for (int i =0; i<4;i++) {
+        for (int i =0; i<shieldsAmount;i++) {
             Shield shield = new Shield(SHIELD_INIT_X+40*(2*i));
             shields.add(shield);
         }
@@ -225,10 +234,15 @@ public class Board extends JPanel implements Runnable, Commons {
             ingame = false;
         }
 
+        // level up
+
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level <5 ) {
             deaths = 0;
             level = level +1;
-            DELAY = DELAY -2;
+            alienSpeed  = alienSpeed +1;
+            shieldsAmount = shieldsAmount -1;
+            ufoTimer = (int) (Math.random() * (60 - 45) + 45);
+            ufoPoints = (int) (Math.random() * (300 - 50) + 50);
             gameInit();
             }
 
@@ -281,9 +295,12 @@ public class Board extends JPanel implements Runnable, Commons {
 
             int x = alien.getX();
 
-            if (x >= BOARD_WIDTH - BORDER_RIGHT && direction != -1) {
+            // velocidad aliens
 
-                direction = -1;
+
+            if (x >= BOARD_WIDTH - BORDER_RIGHT && direction != -alienSpeed) {
+
+                direction = -alienSpeed;
                 Iterator i1 = aliens.iterator();
 
                 while (i1.hasNext()) {
@@ -293,9 +310,9 @@ public class Board extends JPanel implements Runnable, Commons {
                 }
             }
 
-            if (x <= BORDER_LEFT && direction != 1) {
+            if (x <= BORDER_LEFT && direction != alienSpeed) {
 
-                direction = 1;
+                direction = alienSpeed;
 
                 Iterator i2 = aliens.iterator();
 
@@ -396,6 +413,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
                         if (!b.isDestroyed()) {
 
+                // velocidad bombas
                 b.setY(b.getY() + 1);
 
                 if (b.getY() >= GROUND - BOMB_HEIGHT) {
