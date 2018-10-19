@@ -11,7 +11,7 @@ public class Alien extends Sprite {  //vamos a tener que implementar Commons
 
     public Alien(int x, int y, AlienType typeOfAlien) {
 
-        this.x = x;
+        this.x= x;
         this.y = y;
         alienType=typeOfAlien;
 
