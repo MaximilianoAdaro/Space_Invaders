@@ -2,15 +2,15 @@ public class Ufo extends Alien {
 
     private boolean ufoIsActive;
 
-    public Ufo(int x, int y, AlienType typeOfAlien) {
+    Ufo(int x, int y, AlienType typeOfAlien) {
         super(x, y, typeOfAlien);
     }
 
-    public void changePoints() {
+    void changePoints() {
         points= (int)(Math.random()*251+50);
     }
 
-    public boolean isUfoActive() {
+    boolean isUfoActive() {
         return ufoIsActive;
     }
 

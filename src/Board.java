@@ -7,9 +7,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.IllegalFormatCodePointException;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -39,19 +37,19 @@ public class Board extends JPanel implements Runnable, Commons {
 
     private int ufoDirection= -1;
     private long ufoTime;
+    private long time;
 
     private int deaths = 0;
 
     private int shieldsAmount = 4;
 
-
     private boolean ingame = true;
+
     private final String explImg = "src/images/explosion.png";
     private String message = "Game Over";
 
 
     private Thread animator;
-    private boolean ufoIsActive= false;
 
     Board() {
 
@@ -62,6 +60,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
         gameInit();
         setDoubleBuffered(true);
+        newUfoTime();
     }
 
     @Override
@@ -94,7 +93,6 @@ public class Board extends JPanel implements Runnable, Commons {
 
         ufo= new Ufo(1,1,new AlienType((int) (Math.random()*251+15),"src/images/alienBig.png"));
 
-
         shields = new ArrayList<>();
 
         for (int i = 0; i < shieldsAmount; i++) {
@@ -111,71 +109,79 @@ public class Board extends JPanel implements Runnable, Commons {
         }
     }
 
-    private void drawAliens(Graphics g) {
-        Iterator it = aliens.iterator();
-        for (Alien alien : aliens) {
-            if (alien.isVisible()) {
-                g.drawImage(alien.getImage(), alien.getX(), alien.getY(), this);
+    @Override
+    public void run() {
+
+        long beforeTime, timeDiff, sleep;
+        beforeTime = System.currentTimeMillis();
+
+        while (ingame) {
+            time= (System.currentTimeMillis()/1000);
+
+            repaint();
+            animationCycle();
+
+            timeDiff = System.currentTimeMillis() - beforeTime;
+            sleep = DELAY - timeDiff;
+
+            if (sleep < 0) {
+                sleep = 2;
             }
-            if (alien.isDying()) {
-                alien.die();
+
+            try {
+                Thread.sleep(sleep);
+            } catch (InterruptedException e) {
+                System.out.println("interrupted");
             }
+
+            beforeTime = System.currentTimeMillis();
         }
+
+        gameOver();
     }
 
-    private void drawUfo(Graphics g){
-        if(ufoIsActive) {
-            if (ufo.isVisible()){
-                g.drawImage(ufo.getImage(), ufo.getX(), 1, this);
-            }
-            if (ufo.isDying()){
-                ufo.die();
-            }
-        }
-    }
+    private void animationCycle() {
 
+        System.out.println(time);
+        System.out.println(ufoTime);
 
-    private void drawShields(Graphics g) {
-        Iterator it = shields.iterator();
-        for (Shield shield : shields) {
-            if (shield.isVisible()) {
-                g.drawImage(shield.getImage(), shield.getX(), shield.getY(), this);
-            }
-        }
-    }
+        message = "Game Over";
 
-    private void drawPlayer(Graphics g) {
-        if (player.isVisible()) {
-            g.drawImage(player.getImage(), player.getX(), player.getY(), this);
-        }
-        if (player.isDying()) {
-            player.die();
-            ImageIcon ii = new ImageIcon(explImg);
-            player.setImage(ii.getImage());
+        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level == 5) {
+            message = "Game Won";
             ingame = false;
         }
-    }
 
-    private void drawShot(Graphics g) {
+        // level up
+        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level < 5) {
+            levelUp();
+//            newUfoTime();
+        }
 
+        if (!player.isVisible()) {
+            ingame = false;
+        }
+        // player
+        player.act();
+
+        // shot
         if (shot.isVisible()) {
-
-            g.drawImage(shot.getImage(), shot.getX(), shot.getY(), this);
+            shotAct();
         }
-    }
 
-
-    private void drawBombing(Graphics g) {
-
-        for (Alien a : aliens) {
-
-            Bomb b = a.getBomb();
-
-            if (!b.isDestroyed()) {
-
-                g.drawImage(b.getImage(), b.getX(), b.getY(), this);
-            }
+        //ufo
+        if (ufo.isUfoActive()) {
+            activeUfo();
+        } else {
+            if (ufoTime == time)
+                ufo.setUfoIsActive(true);
         }
+
+        // aliens
+        buildAlien();
+
+        // bombs
+        alienBombAct();
     }
 
     @Override
@@ -274,47 +280,6 @@ public class Board extends JPanel implements Runnable, Commons {
         }
     }
 
-    private void animationCycle() {
-
-        message = "Game Over";
-
-        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level == 5) {
-            message = "Game Won";
-            ingame = false;
-        }
-
-        // level up
-        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level < 5) {
-            levelUp();
-        }
-
-        if (!player.isVisible()) {
-            ingame = false;
-        }
-        // player
-        player.act();
-
-        // shot
-        if (shot.isVisible()) {
-            shotAct();
-        }
-
-        //ufo
-        if (ufoIsActive) {
-            activeUfo();
-        } else {
-            if (ufoTime == (int) System.currentTimeMillis() / 1000)
-                ufoIsActive = true;
-        }
-
-        // aliens
-        buildAlien();
-
-        // bombs
-        alienBombAct();
-    }
-
-
     public void shotAct(){
 
 
@@ -354,13 +319,15 @@ public class Board extends JPanel implements Runnable, Commons {
 
     public void activeUfo(){
 
-        if (ufo.getX() <= BORDER_LEFT && ufoDirection != 1) {
+
+        if (ufo.getX() <= BORDER_LEFT && ufoDirection == -1) {
             ufoDirection = 1;
         }
         ufo.act(ufoDirection);
 
         if (ufo.getX() >= BOARD_WIDTH - BORDER_RIGHT) {
-            ufoIsActive = false;
+            ufo.setUfoIsActive(false);
+            newUfoTime();
         }
 
         int shotX = shot.getX();
@@ -368,7 +335,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
         int ufoX = ufo.getX();
         int ufoY = ufo.getY();
-        if (ufoIsActive && shot.isVisible()) {
+        if (ufo.isUfoActive() && shot.isVisible()) {
             if (shotX >= (ufoX)
                     && shotX <= (ufoX + ALIEN_WIDTH)
                     && shotY >= (ufoY)
@@ -512,37 +479,76 @@ public class Board extends JPanel implements Runnable, Commons {
         }
     }
 
-    @Override
-    public void run() {
-
-        long beforeTime, timeDiff, sleep;
-
-        beforeTime = System.currentTimeMillis();
-
-        while (ingame) {
-
-            repaint();
-            animationCycle();
-
-            timeDiff = System.currentTimeMillis() - beforeTime;
-            sleep = DELAY - timeDiff;
-
-            if (sleep < 0) {
-                sleep = 2;
-            }
-
-            try {
-                Thread.sleep(sleep);
-            } catch (InterruptedException e) {
-                System.out.println("interrupted");
-            }
-
-            beforeTime = System.currentTimeMillis();
-        }
-
-        gameOver();
+    public void newUfoTime(){
+        long difference= (System.currentTimeMillis() / 1000);
+        ufoTime= difference + ((int) (Math.random() * 16) +45);
     }
 
+    private void drawAliens(Graphics g) {
+        Iterator it = aliens.iterator();
+        for (Alien alien : aliens) {
+            if (alien.isVisible()) {
+                g.drawImage(alien.getImage(), alien.getX(), alien.getY(), this);
+            }
+            if (alien.isDying()) {
+                alien.die();
+            }
+        }
+    }
+
+    private void drawUfo(Graphics g){
+        if(ufo.isUfoActive()) {
+            if (ufo.isVisible()){
+                g.drawImage(ufo.getImage(), ufo.getX(), 1, this);
+            }
+            if (ufo.isDying()){
+                ufo.die();
+            }
+        }
+    }
+
+
+    private void drawShields(Graphics g) {
+        Iterator it = shields.iterator();
+        for (Shield shield : shields) {
+            if (shield.isVisible()) {
+                g.drawImage(shield.getImage(), shield.getX(), shield.getY(), this);
+            }
+        }
+    }
+
+    private void drawPlayer(Graphics g) {
+        if (player.isVisible()) {
+            g.drawImage(player.getImage(), player.getX(), player.getY(), this);
+        }
+        if (player.isDying()) {
+            player.die();
+            ImageIcon ii = new ImageIcon(explImg);
+            player.setImage(ii.getImage());
+            ingame = false;
+        }
+    }
+
+    private void drawShot(Graphics g) {
+
+        if (shot.isVisible()) {
+
+            g.drawImage(shot.getImage(), shot.getX(), shot.getY(), this);
+        }
+    }
+
+    private void drawBombing(Graphics g) {
+
+        for (Alien a : aliens) {
+
+            Bomb b = a.getBomb();
+
+            if (!b.isDestroyed()) {
+
+                g.drawImage(b.getImage(), b.getX(), b.getY(), this);
+            }
+        }
+    }
 
     //clase que no hay que tocar TAdapter
     private class TAdapter extends KeyAdapter {
