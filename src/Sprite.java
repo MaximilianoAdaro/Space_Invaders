@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.Image;
 import java.util.ArrayList;
 
-public class Sprite { //mostra en la pantalla
+public class Sprite { //muestra en la pantalla
 
     private boolean visible;
     private Image image;

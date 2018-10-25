@@ -6,7 +6,7 @@ public class Alien extends Sprite {  //vamos a tener que implementar Commons
     private String alienImg;
 
     private AlienType alienType;
-    private int points;
+    int points;
 
 
     public Alien(int x, int y, AlienType typeOfAlien) {
