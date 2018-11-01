@@ -21,6 +21,6 @@ public class SpaceInvaders extends JFrame implements Commons {
         EventQueue.invokeLater(() -> {
             SpaceInvaders ex = new SpaceInvaders();
             ex.setVisible(true);
-        });
+        }); //
     }
 }

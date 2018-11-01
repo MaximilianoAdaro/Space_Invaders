@@ -65,7 +65,7 @@ public class Board extends JPanel implements Runnable, Commons {
         private final String explImg = "src/images/explosion.png";
         private String message = "Game Over";
 
-        int successfulShots = 0; //contador para los specialpowers
+        private int successfulShots = 0; //contador para los specialpowers
 
         private Thread animator;
 
@@ -337,9 +337,10 @@ public class Board extends JPanel implements Runnable, Commons {
                         deaths++;
                         player.addPoints(alien.getPoints());
                         shot.die();
-                        successfulShots++;
+
+                        successfulShots++; //se le suma al contador un tiro
                     }
-                            successfulShots = 0; //no mato a nadie comienza d nuevo
+                            successfulShots = 0; //no mato a nadie comienza de nuevo
                 }
 
             }
@@ -384,9 +385,9 @@ public class Board extends JPanel implements Runnable, Commons {
                     ufo.changePoints();
 
                     shot.die();
-                    successfulShots++;
+                    successfulShots++; //se le suma al contador un tiro
 
-                }  successfulShots = 0; //como no mato a nadie empieza en cero de nuevo
+                }  successfulShots = 0; // no mato a nadie entonces empieza en cero de nuevo
             }
         }
 
@@ -588,7 +589,7 @@ public class Board extends JPanel implements Runnable, Commons {
             }
         }
 
-        private void specialPowers(){ // CANDE LO TERMINA PLES NO TOKAR
+        private void specialPowers(){ // A terminar por cande plis no toquen :))))
 
             if (successfulShots == 4){
 

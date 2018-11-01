@@ -3,7 +3,8 @@ import java.util.ArrayList;
 public class SpecialPowers  {
 
     // 4 tiros sin errar
-        double randomNumber = Math.random ();
+
+    double randomNumber = Math.random ();
 
         String powerName;
 
