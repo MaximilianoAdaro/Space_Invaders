@@ -91,14 +91,32 @@ public class Board extends JPanel implements Runnable, Commons {
             }
         }
 
-        ufo= new Ufo(1,1,new AlienType((int) (Math.random()*251+15),"src/images/alienBig.png"));
+        ufo = new Ufo(1, 1, new AlienType((int) (Math.random() * 251 + 15), "src/images/alienBig.png"));
 
         shields = new ArrayList<>();
 
         for (int i = 0; i < shieldsAmount; i++) {
-            Shield shield = new Shield(SHIELD_INIT_X + 40 * (2 * i));
+            if (shieldsAmount == 4) {
+                Shield shield = new Shield(SHIELD_INIT_X + shieldsAmount * (20 * i));
+                shields.add(shield);
+            }
+            if (shieldsAmount == 3) {
+                Shield shield = new Shield(SHIELD_INIT_X + 30 + shieldsAmount * (30 * i));
+                shields.add(shield);
+            }
+
+
+            if (shieldsAmount == 2) {
+            Shield shield = new Shield(SHIELD_INIT_X + 70 + shieldsAmount * (40 * i));
             shields.add(shield);
-        }
+            }
+
+            if (shieldsAmount == 1) {
+            Shield shield = new Shield(SHIELD_INIT_X + 90 + shieldsAmount * (50 * i));
+            shields.add(shield);
+            }
+    }
+
 
         shot = new Shot();
 
