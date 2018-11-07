@@ -589,7 +589,7 @@ public class Board extends JPanel implements Runnable, Commons {
             }
         }
 
-        private void specialPowers(){ // A terminar por cande plis no toquen :))))
+        private void specialPowers(){ //
 
             String nameOfPower;
 
