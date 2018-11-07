@@ -89,4 +89,8 @@ public class Player extends Sprite implements Commons {
             dx = 0;
         }
     }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
 }
