@@ -12,6 +12,8 @@ public class Player extends Sprite implements Commons {
     private int lives;
     private int points;
 
+    private String name;
+
     public Player() {
         
         ImageIcon ii = new ImageIcon(playerImg);
