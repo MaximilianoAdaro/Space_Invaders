@@ -4,7 +4,7 @@ import java.util.List;
 public class Score {
     String name;
     int points;
-    //public static List<Score> ranking= new ArrayList<>();
+//    public static List<Score> ranking= new ArrayList<>();
 
 
 
@@ -32,7 +32,7 @@ public class Score {
        // return new Score(s.split(":")[0], Integer.parseInt(s.split(":")[1]));
     //}
 
-   // public static List<Score> ranking(){
-        //return ranking;
-    //}
+//    public static List<Score> ranking(){
+//        return ranking;
+//    }
 }

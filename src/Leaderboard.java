@@ -72,6 +72,27 @@ public class Leaderboard {
             ranking.sort(new SortByRollNo());
 
         }
+
+        save(ranking);
+    }
+
+
+    public void save(List<Score> scores) {
+        FileWriter file;
+        BufferedWriter buffer;
+
+        try
+        {
+            file = new FileWriter(filename);
+            buffer = new BufferedWriter(file);
+
+            for (int i = 0; i < ranking.size(); i++) {
+                buffer.write(ranking.get(i).Serialize());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
