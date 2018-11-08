@@ -572,9 +572,46 @@ public class Board extends JPanel implements Runnable, Commons {
             }
         }
 
-        private void specialPowers(){ // A terminar por cande plis no toquen :))))
+        private void specialPowers(){ //
+
+            String nameOfPower;
 
             if (successfulShots == 4){
+
+
+                successfulShots = 0; //comienza de nuevo
+
+                int random = (int) Math.random ();
+
+                switch(random){
+
+                    case 1: nameOfPower = "Double Damage";
+
+
+
+                    break;
+
+                    case 2: nameOfPower = "Freeze Alien";
+
+                    DELAY = 0;
+
+
+                    break;
+
+
+                    case 3: nameOfPower = "Inmunity";
+
+                    player.setLives ( 100 );
+
+                    break;
+
+                }
+
+
+
+
+
+
 
 
 
