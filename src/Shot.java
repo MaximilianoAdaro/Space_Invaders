@@ -2,6 +2,8 @@ import javax.swing.ImageIcon;
 
 class Shot extends Sprite {
 
+    Shot(){}
+
     Shot(int x, int y) {
 
         initShot(x, y);
