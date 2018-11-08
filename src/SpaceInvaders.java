@@ -3,12 +3,12 @@ import javax.swing.JFrame;
 
 public class SpaceInvaders extends JFrame implements Commons {
 
-    public SpaceInvaders() {
-        initUI();
-    }
+    private SpaceInvaders() {
 
-    private void initUI() {
-        add(new Board());
+//      Voy a tener que agregar botones (Jpanel antes)
+
+        Board board= new Board();
+        add(board);
         setTitle("Space Invaders");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(BOARD_WIDTH, BOARD_HEIGHT);
@@ -23,6 +23,6 @@ public class SpaceInvaders extends JFrame implements Commons {
         EventQueue.invokeLater(() -> {
             SpaceInvaders ex = new SpaceInvaders();
             ex.setVisible(true);
-        }); //
+        });
     }
 }

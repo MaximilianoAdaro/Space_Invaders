@@ -19,9 +19,8 @@ public class Score {
         return name+":"+points;
     }
 
-    public String getid() {
+    public String getName() {
         return name;
-
     }
 
     public int getPoints(){

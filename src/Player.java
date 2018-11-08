@@ -2,7 +2,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 
-public class Player extends Sprite implements Commons {
+class Player extends Sprite implements Commons {
 
     private final int START_Y = 280;
     private final int START_X = 270;
