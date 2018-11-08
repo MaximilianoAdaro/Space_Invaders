@@ -7,8 +7,7 @@ public class SpaceInvaders extends JFrame implements Commons {
 
 //      Voy a tener que agregar botones (Jpanel antes)
 
-        Board board= new Board();
-        add(board);
+        add(new Board());
         setTitle("Space Invaders");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(BOARD_WIDTH, BOARD_HEIGHT);
@@ -17,8 +16,6 @@ public class SpaceInvaders extends JFrame implements Commons {
     }
 
     public static void main(String[] args) {
-
-
 
         EventQueue.invokeLater(() -> {
             SpaceInvaders ex = new SpaceInvaders();

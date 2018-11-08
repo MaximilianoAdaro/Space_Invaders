@@ -14,14 +14,17 @@ class Power {
     }
 
     void immunityPlayer() {
+        setImmunityPlayer(true);
 //        No se le baja la vida al jugador
     }
 
     void freezeAlien() {
+        setFreezeAlien(true);
 //        Se congelan los Aliens
     }
 
     void doubleShot() {
+        setDoubleShot(true);
 //        Doble tiro del jugador
     }
 
