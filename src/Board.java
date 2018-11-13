@@ -17,7 +17,9 @@ public class Board extends JPanel implements Runnable, Commons {
     private Player player;
     private Ufo ufo;
 
-    private Shot shot;
+    private Shot shot1;
+    private Shot shot2;
+
     private ArrayList<Shield> shields;
 
     private int DELAY = 17;
@@ -25,7 +27,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private int level = 1;
 
     private final int SHIELD_INIT_X = 40;
-//    private final int SHIELD_INIT_Y = 200;
+    private final int SHIELD_INIT_Y = 200;
 
     private final int ALIEN_INIT_X = 150;
     private final int ALIEN_INIT_Y = 5;
@@ -40,13 +42,12 @@ public class Board extends JPanel implements Runnable, Commons {
     private int successfulShots;
 
     private Power power;
-    private Drawer drawer= new Drawer(this);
 
     private int shieldsAmount = 4;
 
-    boolean ingame = true;
+    private boolean ingame = true;
 
-    final String explImg = "src/images/explosion.png";
+    private final String explImg = "src/images/explosion.png";
     private String message = "Game Over";
 
 
@@ -59,6 +60,8 @@ public class Board extends JPanel implements Runnable, Commons {
         d = new Dimension(BOARD_WIDTH, BOARD_HEIGHT);
         setBackground(Color.black);
 
+        newUfoTime();
+        player= new Player();
         gameInit();
         setDoubleBuffered(true);
     }
@@ -94,13 +97,12 @@ public class Board extends JPanel implements Runnable, Commons {
         ufo= new Ufo(1,1,new AlienType((int) (Math.random()*251+15),"src/images/alienBig.png"));
 
         successfulShots =0;
-        player= new Player();
         power= new Power(this);
-        newUfoTime();
 
         shields = new ArrayList<>();
 
-        shot= new Shot();
+        shot1= new Shot();
+        shot2= new Shot();
 
         for (int i = 0; i < shieldsAmount; i++) {
             Shield shield = new Shield(SHIELD_INIT_X + 40 * (2 * i));
@@ -147,9 +149,10 @@ public class Board extends JPanel implements Runnable, Commons {
 
     private void animationCycle() {
 
-        System.out.println(time);
-        System.out.println(ufoTime);
-
+//        System.out.println(time);
+//        System.out.println(ufoTime);
+//        System.out.println(successfulShots);
+        System.out.println(deaths);
         message = "Game Over";
 
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level == 5) {
@@ -159,6 +162,16 @@ public class Board extends JPanel implements Runnable, Commons {
 
         // level up
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level < 5) {
+
+            //condiciones para que se reinicie el ufo en caso de que justo aparezca mientras se cambia de nivel
+            if(ufoTime<=(time-3)){
+                ufoTime-=4;
+            }
+            if(ufo.isUfoActive()){
+                ufo.setUfoIsActive(false);
+                newUfoTime();
+            }
+
             levelUp();
         }
 
@@ -172,8 +185,11 @@ public class Board extends JPanel implements Runnable, Commons {
         powerAction();
 
         // shot
-        if (shot.isVisible()) {
-            shotAct();
+        if (shot1.isVisible()) {
+            shotAct(shot1);
+        }
+        if(shot2.isVisible()){
+            shotAct(shot2);
         }
 
         //ufo
@@ -205,7 +221,8 @@ public class Board extends JPanel implements Runnable, Commons {
             drawAliens(g);
             drawPlayer(g);
             drawShields(g);
-            drawShot(g);
+            drawShot1(g);
+            drawShot2(g);
             drawBombing(g);
             drawUfo(g);
         }
@@ -223,16 +240,21 @@ public class Board extends JPanel implements Runnable, Commons {
 
         g.setColor(Color.white);
         g.setFont(small);
-        g.drawString("Score: " + player.getPoints(), 220, 303);
+        g.drawString("Score: " + player.getPoints(), 290, 303);
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
+
+
+        if(power.isDoubleShot()){g.drawString("Double Shot for: "+(time-shotTime)+" seconds",1,1);}
+        if(power.isFreezeAlien()){g.drawString("Freeze Aliens for: "+(time-shotTime)+" seconds",1,1);}
+        if(power.isImmunityPlayer()){g.drawString("Inmunity Player for: "+(time-shotTime)+" seconds",1,1);}
+
     }
 
     private void gameOver() {
 
         Graphics g = this.getGraphics();
 
-        buttons();
 
         g.setColor(Color.black);
         g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
@@ -252,21 +274,22 @@ public class Board extends JPanel implements Runnable, Commons {
         String score = "Your score was: " + player.getPoints();
         g.drawString(score, (BOARD_WIDTH - metr.stringWidth(score)) / 2 - 2,
                 BOARD_WIDTH / 2 + 17);
+        buttons();
     }
 
     private void buttons() {
         JButton buttonPlayAgain= new JButton("Play Again");
-        ActionListener actionListener= new ActionListener() {
+        buttonPlayAgain.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Board();
             }
-        };
+        });
         buttonPlayAgain.setBackground(new Color(112, 106, 37));
         buttonPlayAgain.setForeground(Color.white);
 
         buttonPlayAgain.setBounds(BOARD_WIDTH/2,BOARD_HEIGHT/2+300,100,100);
-        buttonPlayAgain.addActionListener(actionListener);
+        buttonPlayAgain.setVisible(true);
         add(buttonPlayAgain);
     }
 
@@ -310,7 +333,7 @@ public class Board extends JPanel implements Runnable, Commons {
         }
     }
 
-    private void shotAct(){
+    private void shotAct(Shot shot){
 
 
         int shotX = shot.getX();
@@ -361,6 +384,11 @@ public class Board extends JPanel implements Runnable, Commons {
             ufo.setUfoIsActive(false);
         }
 
+        shotUfoAction(shot1);
+        shotUfoAction(shot2);
+    }
+
+    private void shotUfoAction(Shot shot) {
         int shotX = shot.getX();
         int shotY = shot.getY();
 
@@ -385,16 +413,17 @@ public class Board extends JPanel implements Runnable, Commons {
     }
 
     private void powerAction() {
-        if(successfulShots>=4){
-            shotTime= time+ ((int) (Math.random()*2) +3) ;
+        if(successfulShots==4){
+            shotTime= time+ ((int) (Math.random()*3) +10) ;
 
             int random= (int)(Math.random()*100);
+
             if(random<=20){
                 power.immunityPlayer();
-            } else if(random<90) {
-                power.doubleShot();
-            } else {
+            } else if(random<=30) {
                 power.freezeAlien();
+            } else {
+                power.doubleShot();
             }
 
             successfulShots=0;
@@ -497,8 +526,6 @@ public class Board extends JPanel implements Runnable, Commons {
             for (Shield shield : shields) {
                 int shieldX = shield.getX();
                 int shieldY = shield.getSTART_Y();
-                int shotX = shot.getX();
-                int shotY = shot.getY();
 
                 if (shield.isVisible() && !b.isDestroyed()) {
                     if (bombX >= (shieldX)
@@ -510,17 +537,34 @@ public class Board extends JPanel implements Runnable, Commons {
                     }
                 }
 
+                int shotX = shot1.getX();
+                int shotY = shot1.getY();
 
                 if (shotX >= shieldX && shield.isVisible()
                         && shotX <= (shieldX + shield.getWidth())
                         && shotY <= (shieldY + SHIELD_HEIGHT)
                         && shotY > (shieldY)
-                        && shot.isVisible()) {
-                    System.out.println(shield.getRemainingShield());
+                        && shot1.isVisible()) {
+//                    System.out.println(shield.getRemainingShield());
                     shield.getHit();
 
                     successfulShots =0;
-                    shot.die();
+                    shot1.die();
+                }
+
+                int shotX2 = shot2.getX();
+                int shotY2 = shot2.getY();
+
+                if (shotX2 >= shieldX && shield.isVisible()
+                        && shotX2 <= (shieldX + shield.getWidth())
+                        && shotY2 <= (shieldY + SHIELD_HEIGHT)
+                        && shotY2 > (shieldY)
+                        && shot2.isVisible()) {
+//                    System.out.println(shield.getRemainingShield());
+                    shield.getHit();
+
+                    successfulShots =0;
+                    shot2.die();
                 }
 
             }
@@ -540,11 +584,10 @@ public class Board extends JPanel implements Runnable, Commons {
 
     private void newUfoTime(){
         long difference= (System.currentTimeMillis() / 1000);
-        ufoTime= difference + ((int) (Math.random() * 16) +45);
+        ufoTime= difference + ((int) (Math.random() * 16) +15);
     }
 
-
-    void drawAliens(Graphics g) {
+    private void drawAliens(Graphics g) {
         for (Alien alien : aliens) {
             if (alien.isVisible()) {
                 g.drawImage(alien.getImage(), alien.getX(), alien.getY(), this);
@@ -555,7 +598,7 @@ public class Board extends JPanel implements Runnable, Commons {
         }
     }
 
-    void drawUfo(Graphics g){
+    private void drawUfo(Graphics g){
         if(ufo.isUfoActive()) {
             if (ufo.isVisible()){
                 g.drawImage(ufo.getImage(), ufo.getX(), 1, this);
@@ -566,7 +609,7 @@ public class Board extends JPanel implements Runnable, Commons {
         }
     }
 
-    void drawShields(Graphics g) {
+    private void drawShields(Graphics g) {
         for (Shield shield : shields) {
             if (shield.isVisible()) {
                 g.drawImage(shield.getImage(), shield.getX(), shield.getY(), this);
@@ -574,7 +617,7 @@ public class Board extends JPanel implements Runnable, Commons {
         }
     }
 
-    void drawPlayer(Graphics g) {
+    private void drawPlayer(Graphics g) {
         if (player.isVisible()) {
             g.drawImage(player.getImage(), player.getX(), player.getY(), this);
         }
@@ -586,15 +629,24 @@ public class Board extends JPanel implements Runnable, Commons {
         }
     }
 
-    void drawShot(Graphics g) {
+    private void drawShot1(Graphics g) {
 
-        if (shot.isVisible()) {
+        if (shot1.isVisible()) {
 
-            g.drawImage(shot.getImage(), shot.getX(), shot.getY(), this);
+            g.drawImage(shot1.getImage(), shot1.getX(), shot1.getY(), this);
         }
     }
 
-    void drawBombing(Graphics g) {
+    private void drawShot2(Graphics g) {
+
+        if (shot2.isVisible()) {
+
+            g.drawImage(shot2.getImage(), shot2.getX(), shot2.getY(), this);
+        }
+    }
+
+
+    private void drawBombing(Graphics g) {
 
         for (Alien a : aliens) {
 
@@ -607,20 +659,32 @@ public class Board extends JPanel implements Runnable, Commons {
         }
     }
 
-    public ArrayList<Alien> getAliens() {
+    ArrayList<Alien> getAliens() {
         return aliens;
     }
 
-    public Player getPlayer() {
+    Player getPlayer() {
         return player;
     }
 
-    public Ufo getUfo() {
+    Ufo getUfo() {
         return ufo;
     }
 
-    public ArrayList<Shield> getShields() {
+    ArrayList<Shield> getShields() {
         return shields;
+    }
+
+    public Shot getShot1() {
+        return shot1;
+    }
+
+    public Shot getShot2() {
+        return shot2;
+    }
+
+    private void shotWhileDoubleShot(){
+        shot1.changeX(-10);
     }
 
     //clase que no hay que tocar TAdapter
@@ -645,8 +709,13 @@ public class Board extends JPanel implements Runnable, Commons {
             if (key == KeyEvent.VK_SPACE) {
 
                 if (ingame) {
-                    if (!shot.isVisible()) {
-                        shot = new Shot(x, y);
+                    if (!shot1.isVisible()) {
+                        shot1 = new Shot(x, y);
+                        if(power.isDoubleShot()){
+                            shot2= new Shot(x,y);
+                            shot1.changeX(-7);
+                            shot2.changeX(+7);
+                        }
                     }
                 }
 

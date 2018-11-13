@@ -92,10 +92,7 @@ public class Leaderboard {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-
 }
 
 class SortByRollNo implements Comparator<Score> {

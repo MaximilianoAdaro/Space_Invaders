@@ -3,9 +3,7 @@ import java.awt.*;
 import java.util.Random;
 
 public class AlienType {
-/*
-    public static AlienType UFO= new AlienType((int)(Math.random()*251)+50,"");
-*/
+
     private int points;
     private String image;
 

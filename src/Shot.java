@@ -21,5 +21,9 @@ class Shot extends Sprite {
         setX(x + h_SPACE);
         setY(y - v_SPACE);
     }
+    public void changeX(int difference){
+        x+=difference;
+    }
+
 
 }
