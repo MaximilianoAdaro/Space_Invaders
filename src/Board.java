@@ -16,41 +16,28 @@ public class Board extends JPanel implements Runnable, Commons {
     private ArrayList<Alien> aliens;
     private Player player;
     private Ufo ufo;
-
     private Shot shot1;
     private Shot shot2;
-
     private ArrayList<Shield> shields;
-
     private int DELAY = 17;
     public int alienSpeed = 1;
     private int level = 1;
-
     private final int SHIELD_INIT_X = 40;
     private final int SHIELD_INIT_Y = 200;
-
     private final int ALIEN_INIT_X = 150;
     private final int ALIEN_INIT_Y = 5;
     private int direction = -1;
-
     private int ufoDirection= -1;
     private long ufoTime;
     private long time;
     private long shotTime;
-
     private int deaths = 0;
     private int successfulShots;
-
     private Power power;
-
     private int shieldsAmount = 4;
-
     private boolean ingame = true;
-
     private final String explImg = "src/images/explosion.png";
     private String message = "Game Over";
-
-
     private Thread animator;
 
     Board() {
@@ -240,14 +227,14 @@ public class Board extends JPanel implements Runnable, Commons {
 
         g.setColor(Color.white);
         g.setFont(small);
-        g.drawString("Score: " + player.getPoints(), 290, 303);
+        g.drawString("Score: " + player.getPoints(), 270, 303);
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
 
 
-        if(power.isDoubleShot()){g.drawString("Double Shot for: "+(time-shotTime)+" seconds",1,1);}
-        if(power.isFreezeAlien()){g.drawString("Freeze Aliens for: "+(time-shotTime)+" seconds",1,1);}
-        if(power.isImmunityPlayer()){g.drawString("Inmunity Player for: "+(time-shotTime)+" seconds",1,1);}
+        if(power.isDoubleShot()){g.drawString("Double Shot for: "+(time-shotTime)+" seconds",1,305);}
+        if(power.isFreezeAlien()){g.drawString("Freeze Aliens for: "+(time-shotTime)+" seconds",150,303);}
+        if(power.isImmunityPlayer()){g.drawString("Inmunity Player for: "+(time-shotTime)+" seconds",270,303);}
 
     }
 
@@ -335,7 +322,6 @@ public class Board extends JPanel implements Runnable, Commons {
 
     private void shotAct(Shot shot){
 
-
         int shotX = shot.getX();
         int shotY = shot.getY();
 
@@ -344,14 +330,14 @@ public class Board extends JPanel implements Runnable, Commons {
             int alienX = alien.getX();
             int alienY = alien.getY();
 
-            if (alien.isVisible() && shot.isVisible()) {
+            if (alien.isVisible() && shot.isVisible() && !alien.isDying()) {
                 if (shotX >= (alienX)
                         && shotX <= (alienX + ALIEN_WIDTH)
                         && shotY >= (alienY)
                         && shotY <= (alienY + ALIEN_HEIGHT)) {
                     ImageIcon ii = new ImageIcon(explImg);
                     alien.setImage(ii.getImage());
-                    alien.setDying(true);
+                    alien.setDying();
                     deaths++;
                     player.addPoints(alien.getPoints());
                     successfulShots++;
@@ -400,7 +386,7 @@ public class Board extends JPanel implements Runnable, Commons {
                     && shotY >= (ufoY)
                     && shotY <= (ufoY + ALIEN_HEIGHT)) {
 
-                ufo.setDying(true);
+                ufo.setDying();
 
                 player.addPoints(ufo.getPoints());
                 ufo.changePoints();
@@ -414,7 +400,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
     private void powerAction() {
         if(successfulShots==4){
-            shotTime= time+ ((int) (Math.random()*3) +10) ;
+            shotTime= time+ ((int) (Math.random()*3) +5) ;
 
             int random= (int)(Math.random()*100);
 

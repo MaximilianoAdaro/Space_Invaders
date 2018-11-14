@@ -1,6 +1,4 @@
-import javax.swing.*;
 import java.awt.Image;
-import java.util.ArrayList;
 
 public class Sprite { //muestra en la pantalla
 
@@ -12,15 +10,15 @@ public class Sprite { //muestra en la pantalla
     int dx;
     protected int dy; //velocidad de la bomba cayendo en Y
 
-    public Sprite() {
+    Sprite() {
         visible = true;
     }
 
-    public void die() {
+    void die() {
         visible = false;
     }
 
-    public boolean isVisible() {
+    boolean isVisible() {
         return visible;
     }
 
@@ -28,35 +26,35 @@ public class Sprite { //muestra en la pantalla
         this.visible = visible;
     }
 
-    public void setImage(Image image) {
+    void setImage(Image image) {
         this.image = image;
     }
 
-    public Image getImage() {
+    Image getImage() {
         return image;
     }
 
-    public void setX(int x) {
+    void setX(int x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    void setY(int y) {
         this.y = y;
     }
 
-    public int getY() {
+    int getY() {
         return y;
     }
 
-    public int getX() {
+    int getX() {
         return x;
     }
 
-    public void setDying(boolean dying) {
-        this.dying = dying;
+    void setDying(){
+        this.dying = true;
     }
 
-    public boolean isDying() {
+    boolean isDying(){
         return this.dying;
     }
 
