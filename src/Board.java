@@ -27,7 +27,7 @@ public class Board extends JPanel implements Runnable, Commons {
     private final int ALIEN_INIT_X = 150;
     private final int ALIEN_INIT_Y = 5;
     private int direction = -1;
-    private int ufoDirection= -1;
+    private int ufoDirection = -1;
     private long ufoTime;
     private long time;
     private long shotTime;
@@ -48,7 +48,7 @@ public class Board extends JPanel implements Runnable, Commons {
         setBackground(Color.black);
 
         newUfoTime();
-        player= new Player();
+        player = new Player();
         gameInit();
         setDoubleBuffered(true);
     }
@@ -81,15 +81,15 @@ public class Board extends JPanel implements Runnable, Commons {
             }
         }
 
-        ufo= new Ufo(1,1,new AlienType((int) (Math.random()*251+15),"src/images/alienBig.png"));
+        ufo = new Ufo(1, 1, new AlienType((int) (Math.random() * 251 + 15), "src/images/alienBig.png"));
 
-        successfulShots =0;
-        power= new Power(this);
+        successfulShots = 0;
+        power = new Power(this);
 
         shields = new ArrayList<>();
 
-        shot1= new Shot();
-        shot2= new Shot();
+        shot1 = new Shot();
+        shot2 = new Shot();
 
         for (int i = 0; i < shieldsAmount; i++) {
             Shield shield = new Shield(SHIELD_INIT_X + 40 * (2 * i));
@@ -110,7 +110,7 @@ public class Board extends JPanel implements Runnable, Commons {
         beforeTime = System.currentTimeMillis();
 
         while (ingame) {
-            time= (System.currentTimeMillis()/1000);
+            time = (System.currentTimeMillis() / 1000);
 
             repaint();
             animationCycle();
@@ -151,10 +151,10 @@ public class Board extends JPanel implements Runnable, Commons {
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level < 5) {
 
             //condiciones para que se reinicie el ufo en caso de que justo aparezca mientras se cambia de nivel
-            if(ufoTime<=(time-3)){
-                ufoTime-=4;
+            if (ufoTime <= (time - 3)) {
+                ufoTime -= 4;
             }
-            if(ufo.isUfoActive()){
+            if (ufo.isUfoActive()) {
                 ufo.setUfoIsActive(false);
                 newUfoTime();
             }
@@ -175,7 +175,7 @@ public class Board extends JPanel implements Runnable, Commons {
         if (shot1.isVisible()) {
             shotAct(shot1);
         }
-        if(shot2.isVisible()){
+        if (shot2.isVisible()) {
             shotAct(shot2);
         }
 
@@ -228,20 +228,32 @@ public class Board extends JPanel implements Runnable, Commons {
         g.setColor(Color.white);
         g.setFont(small);
         g.drawString("Score: " + player.getPoints(), 270, 303);
+
+
+        g.setColor(Color.green);
+
+        FontMetrics metrics= g.getFontMetrics(small);
+
+        if (power.isDoubleShot()) {
+            g.drawString("Double Shot for: " + (shotTime - time) + " seconds",
+                    358/2-metrics.stringWidth("Double Shot for: " + (shotTime - time) + " seconds")/2, 10);
+        }
+        if (power.isFreezeAlien()) {
+            g.drawString("Freeze Aliens for: " + (shotTime - time) + " seconds",
+                    358/2-metrics.stringWidth("Freeze Aliens for: " + (shotTime - time) + " seconds")/2, 10);
+        }
+        if (power.isImmunityPlayer()) {
+            g.drawString("Inmunity Player for: " + (shotTime - time) + " seconds",
+                    358/2-metrics.stringWidth("Inmunity Player for: " + (shotTime - time) + " seconds")/2,10);
+        }
+
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
-
-
-        if(power.isDoubleShot()){g.drawString("Double Shot for: "+(time-shotTime)+" seconds",1,305);}
-        if(power.isFreezeAlien()){g.drawString("Freeze Aliens for: "+(time-shotTime)+" seconds",150,303);}
-        if(power.isImmunityPlayer()){g.drawString("Inmunity Player for: "+(time-shotTime)+" seconds",270,303);}
-
     }
 
     private void gameOver() {
 
         Graphics g = this.getGraphics();
-
 
         g.setColor(Color.black);
         g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
@@ -261,25 +273,19 @@ public class Board extends JPanel implements Runnable, Commons {
         String score = "Your score was: " + player.getPoints();
         g.drawString(score, (BOARD_WIDTH - metr.stringWidth(score)) / 2 - 2,
                 BOARD_WIDTH / 2 + 17);
-        buttons();
+
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        g.dispose();
+        setVisible(false);
+
+        FinishingPanel finishingPanel= new FinishingPanel(this);
     }
-
-    private void buttons() {
-        JButton buttonPlayAgain= new JButton("Play Again");
-        buttonPlayAgain.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Board();
-            }
-        });
-        buttonPlayAgain.setBackground(new Color(112, 106, 37));
-        buttonPlayAgain.setForeground(Color.white);
-
-        buttonPlayAgain.setBounds(BOARD_WIDTH/2,BOARD_HEIGHT/2+300,100,100);
-        buttonPlayAgain.setVisible(true);
-        add(buttonPlayAgain);
-    }
-
 
     private void levelUp() {
         level++;

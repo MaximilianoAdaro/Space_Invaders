@@ -1,12 +1,22 @@
 import java.awt.EventQueue;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class SpaceInvaders extends JFrame implements Commons {
 
-    private SpaceInvaders() {
+    public SpaceInvaders() {
 
 //      Voy a tener que agregar botones (Jpanel antes)
 
+ /*
+        JPanel panel= new JPanel();
+
+        JButton boton= new JButton("Nuevo boton");
+        boton.setVisible(true);
+        boton.setBounds(150,150,100,100);
+
+        panel.add(boton);
+        add(panel);
+*/
         add(new Board());
         setTitle("Space Invaders");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -15,11 +25,25 @@ public class SpaceInvaders extends JFrame implements Commons {
         setResizable(false);
     }
 
+    public void newBoard(){
+        EventQueue.invokeLater(() -> {
+            setVisible(true);
+        });
+    }
+
     public static void main(String[] args) {
 
-        EventQueue.invokeLater(() -> {
-            SpaceInvaders ex = new SpaceInvaders();
-            ex.setVisible(true);
-        });
+        //Pantalla de inicio para el juego
+        StarterPanel starterPanel = new StarterPanel();
+        while (starterPanel.stillActive()){
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        SpaceInvaders ex = new SpaceInvaders();
+        ex.newBoard();
     }
 }

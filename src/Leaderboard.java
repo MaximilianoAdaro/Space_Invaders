@@ -9,7 +9,6 @@ public class Leaderboard {
 
     String filename = "C:\\Users\\Numa\\Desktop\\Space_Invaders\\Leaderboard.txt";
 
-
     String playerid;
     int playerscore;
     int scoreSize = 5;
@@ -41,9 +40,6 @@ public class Leaderboard {
 
             reader.close();
         }
-
-
-
 
         catch (FileNotFoundException e) {
             System.out.println("Couldn't find file.");
