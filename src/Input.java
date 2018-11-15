@@ -18,27 +18,16 @@ public class Input {
             reader.close();
         }
     }
-//    //public static void hello()
-//    {
-//        Scanner reader = new Scanner(System.in);
-//        System.out.println("Enter Your Name: ");
-//        hola = null;
-//
-//        if(reader.hasNextLine()) {
-//            String s = reader.nextLine();
-//
-//            hola = s;
-//            System.out.println(hola);
-//        }
-
-
-
-        //reader.close();
 
 
     public String returnString()
     {
         return hola;
+    }
+
+    public void changeString()
+    {
+        hola = null;
     }
 }
 
