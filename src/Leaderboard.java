@@ -91,9 +91,10 @@ public class Leaderboard {
     }
 }
 
-class SortByRollNo implements Comparator<Score> {
-
-    public int compare(Score a, Score b) {
+class SortByRollNo implements Comparator<Score>
+{
+    public int compare(Score a, Score b)
+    {
         return b.getPoints() - a.getPoints();
     }
 }

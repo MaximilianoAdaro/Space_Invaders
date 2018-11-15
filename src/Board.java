@@ -40,6 +40,8 @@ public class Board extends JPanel implements Runnable, Commons {
     private String message = "Game Over";
     private Thread animator;
 
+    private Leaderboard leaderboard = new Leaderboard();
+    String name;
     Board() {
 
         addKeyListener(new TAdapter());
@@ -91,11 +93,37 @@ public class Board extends JPanel implements Runnable, Commons {
         shot1 = new Shot();
         shot2 = new Shot();
 
-        for (int i = 0; i < shieldsAmount; i++) {
-            Shield shield = new Shield(SHIELD_INIT_X + 40 * (2 * i));
-            shields.add(shield);
-        }
+        if(shieldsAmount!=0) {
+            int shieldDivision = BOARD_WIDTH / shieldsAmount;
+            if(shieldsAmount == 4){
+            for (int i = 0; i < shieldsAmount; i++) {
+                Shield shield = new Shield((20 + (i) * shieldDivision));
+                shields.add(shield);
+            }
+            }
+            if (shieldsAmount == 3)
+            {
+                for (int i = 0; i < shieldsAmount; i++) {
+                    Shield shield = new Shield((30 + (i) * shieldDivision));
+                    shields.add(shield);
+                }
+            }
 
+            if (shieldsAmount == 2)
+            {
+                for (int i = 0; i < shieldsAmount; i++) {
+                    Shield shield = new Shield((65 + (i) * shieldDivision));
+                    shields.add(shield);
+                }
+            }
+
+            if (shieldsAmount == 1)
+            {
+                    Shield shield = new Shield(BOARD_WIDTH/2 - 20    );
+                    shields.add(shield);
+
+            }
+        }
         if (animator == null || !ingame) {
 
             animator = new Thread(this);
@@ -276,6 +304,13 @@ public class Board extends JPanel implements Runnable, Commons {
 
 
         try {
+            Input input = new Input();
+            player.changeName(input.returnString());
+            name = player.getName();
+
+//            Score sth = new Score(name,player.getPoints());
+//            sth.Serialize();
+//            leaderboard.addScore(sth);
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();

@@ -17,6 +17,7 @@ public class Shield extends Sprite {
         width = ii.getImage().getWidth(null);
         setImage(ii.getImage());
         setY(START_Y);
+        setX(x);
     }
 
     public int getWidth(){

@@ -12,6 +12,7 @@ class Player extends Sprite implements Commons {
     private int lives;
     private int points;
 
+
     private String name;
 
     public Player() {
@@ -25,6 +26,17 @@ class Player extends Sprite implements Commons {
         setY(START_Y);
 
         lives = 3;
+    }
+
+
+    public void changeName(String name)
+    {
+        this.name =  name;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
 
