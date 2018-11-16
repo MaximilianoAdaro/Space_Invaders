@@ -266,16 +266,16 @@ public class Board extends JPanel implements Runnable, Commons {
         FontMetrics metrics= g.getFontMetrics(small);
 
         if (power.isDoubleShot()) {
-            g.drawString("Double Shot for: " + (shotTime - time) + " seconds",
-                    358/2-metrics.stringWidth("Double Shot for: " + (shotTime - time) + " seconds")/2, 10);
+            g.drawString("DOUBLE SHOT for: " + (shotTime - time) + " seconds",
+                    358/2-metrics.stringWidth("DOUBLE SHOT for: " + (shotTime - time) + " seconds")/2, 10);
         }
         if (power.isFreezeAlien()) {
-            g.drawString("Freeze Aliens for: " + (shotTime - time) + " seconds",
-                    358/2-metrics.stringWidth("Freeze Aliens for: " + (shotTime - time) + " seconds")/2, 10);
+            g.drawString("FREEZE ALIENS  for: " + (shotTime - time) + " seconds",
+                    358/2-metrics.stringWidth("FREEZE ALIENS for: " + (shotTime - time) + " seconds")/2, 10);
         }
         if (power.isImmunityPlayer()) {
-            g.drawString("Inmunity Player for: " + (shotTime - time) + " seconds",
-                    358/2-metrics.stringWidth("Inmunity Player for: " + (shotTime - time) + " seconds")/2,10);
+            g.drawString("IMMUNITY PLAYER for: " + (shotTime - time) + " seconds",
+                    358/2-metrics.stringWidth("IMMUNITY PLAYER for: " + (shotTime - time) + " seconds")/2,10);
         }
 
         Toolkit.getDefaultToolkit().sync();
@@ -301,7 +301,7 @@ public class Board extends JPanel implements Runnable, Commons {
         g.setFont(small);
         g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message)) / 2,
                 BOARD_WIDTH / 2);
-        String score = "Your score was: " + player.getPoints();
+        String score = "Your score is: " + player.getPoints();
         g.drawString(score, (BOARD_WIDTH - metr.stringWidth(score)) / 2 - 2,
                 BOARD_WIDTH / 2 + 17);
 

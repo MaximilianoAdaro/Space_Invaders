@@ -5,15 +5,22 @@ import java.awt.event.ActionListener;
 
 public class FinishingPanel extends JFrame implements Commons{
 
+    private Board board;
     private JPanel panel;
     private JButton buttonPlayAgain;
     private JButton buttonSetText;
     private JTextField textName;
     private JLabel labelName;
-    private String name;
+    private JLabel scoreLabel;
     private boolean active=true;
 
+    private String name;
+    private int score;
+
     public FinishingPanel(Board board){
+
+        this.board=board;
+        score= board.getPlayer().getPoints();
 
         setTitle("Statics");
         setEnabled(true);
@@ -22,12 +29,12 @@ public class FinishingPanel extends JFrame implements Commons{
         buttonPlayAgain();
         buttonSetText();
 
-
         //textField
         textField();
 
         //label
         label();
+        score();
 
         //panel
         panel();
@@ -35,6 +42,7 @@ public class FinishingPanel extends JFrame implements Commons{
         panel.add(buttonSetText);
         panel.add(textName);
         panel.add(labelName);
+        panel.add(scoreLabel);
 
         //frame
         setBounds(587, 230, BOARD_WIDTH, BOARD_HEIGHT);
@@ -42,6 +50,14 @@ public class FinishingPanel extends JFrame implements Commons{
 
 
         setVisible(true);
+    }
+
+    private void score() {
+        scoreLabel= new JLabel("Your score is: "+board.getPlayer().getPoints()+" points");
+        scoreLabel.setLayout(null);
+        scoreLabel.setForeground(Color.white);
+        scoreLabel.setBounds(110, 160, 150, 30);
+
     }
 
     private void buttonSetText() {
