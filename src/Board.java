@@ -314,10 +314,10 @@ public class Board extends JPanel implements Runnable, Commons {
         }
 
         g.dispose();
-//        setVisible(false);
 
         FinishingPanel finishingPanel= new FinishingPanel(this);
         spaceInvaders.setVisible(false);
+
         while(finishingPanel.isStillActive()){
             try {
                 Thread.sleep(1);
@@ -723,6 +723,10 @@ public class Board extends JPanel implements Runnable, Commons {
 
     private void shotWhileDoubleShot(){
         shot1.changeX(-10);
+    }
+
+    public Leaderboard getLeaderboard() {
+        return leaderboard;
     }
 
     //clase que no hay que tocar TAdapter

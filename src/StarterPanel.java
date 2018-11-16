@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 import javax.swing.*;
 
 public class StarterPanel extends JFrame implements  Commons {
@@ -8,6 +9,8 @@ public class StarterPanel extends JFrame implements  Commons {
 //    private JButton highScore;
     private JPanel buttonPanel;
     private JButton startButton;
+    List<String> ranking;
+
     private boolean active=true;
 
     public StarterPanel(){
@@ -18,6 +21,7 @@ public class StarterPanel extends JFrame implements  Commons {
         //buttonPlayAgain
         button();
 
+
         //panel
         panel();
 
@@ -26,19 +30,8 @@ public class StarterPanel extends JFrame implements  Commons {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-
-
-
-//        -HighScore-
-//
-//        highScore = new JButton("View HighScores");
-//        fieldsPanel = new JPanel();
-//        fieldsPanel.setLayout(new BoxLayout(fieldsPanel, 2));
-//
-//        fieldsPanel.add(highScore);
-//        add(fieldsPanel, BorderLayout.PAGE_START);
-
     }
+
 
     private void panel() {
         buttonPanel = new JPanel(true);
@@ -49,7 +42,7 @@ public class StarterPanel extends JFrame implements  Commons {
     private void button() {
         startButton = new JButton("Start Game");
         startButton.setLayout(null);
-        startButton.setBounds(120, 90, 100, 30);
+        startButton.setBounds(120, 60, 100, 30);
 //        startButton.setBackground(new Color(112, 106, 37));
         startButton.addActionListener(new ActionListener() {
             @Override

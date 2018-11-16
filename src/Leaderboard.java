@@ -5,16 +5,15 @@ import java.util.List;
 
 public class Leaderboard {
 
-    static List<Score> ranking;
+    private static List<Score> ranking;
 
-    static String filename = "Leaderboard.txt";
+    private static String filename = "Leaderboard.txt";
 
     static String playerid;
     static int playerscore;
-    static int scoreSize = 5;
 
-    public Leaderboard(){
-        ranking = new ArrayList<>(scoreSize);
+    Leaderboard(){
+        ranking = new ArrayList<>();
 
         BufferedReader reader;
         FileReader file;
@@ -37,6 +36,12 @@ public class Leaderboard {
             }
             ranking.sort(new SortByRollNo());
 
+            List<String> rank= new ArrayList<>();
+            for (int i = 0; i < ranking.size() ; i++) {
+                rank.add(ranking.get(i).Serialize());
+            }
+            FinishingPanel.setRanking(rank);
+
             reader.close();
         } catch (FileNotFoundException e) {
             System.out.println("Couldn't find file.");
@@ -46,15 +51,12 @@ public class Leaderboard {
     }
 
     public static boolean isHigher(Score score) {
-        if((ranking.size())>0 ) {
-            Score last = ranking.get(ranking.size() - 1);
-            int number = last.getPoints();
-            return (score.getPoints() > number);
-        }
-        return true;
+        Score last = ranking.get(ranking.size() - 1);
+        int number = last.getPoints();
+        return (score.getPoints() > number);
     }
 
-    public List<Score> getRanking(){
+    static List<Score> getRanking(){
         return ranking;
     }
 
@@ -62,9 +64,14 @@ public class Leaderboard {
     public static void addScore(Score score){
         if (isHigher(score)){
 
+
             ranking.add(score);
 
             ranking.sort(new SortByRollNo());
+
+            if(ranking.size()>=11){
+                ranking.remove(10);
+            }
 
         }
 
