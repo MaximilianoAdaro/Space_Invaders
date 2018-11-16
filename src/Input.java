@@ -3,29 +3,25 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-public class Input {
+class Input {
+    private static String hola;
 
-    static String hola = null;
-
-    public Input()
-    {
+    Input() {
         Scanner reader = new Scanner(System.in);
         System.out.println("Enter your name: ");
         if(reader.hasNextLine()){
-            String s = reader.nextLine();
-            hola = s;
+            hola = reader.nextLine();
             System.out.println(hola);
             reader.close();
         }
     }
 
-
-    public String returnString()
+    String returnString()
     {
         return hola;
     }
 
-    public void changeString()
+    void changeString()
     {
         hola = null;
     }

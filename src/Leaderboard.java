@@ -7,7 +7,7 @@ public class Leaderboard {
 
     List<Score> ranking;
 
-    String filename = "C:\\Users\\Numa\\Desktop\\Space_Invaders\\Leaderboard.txt";
+    String filename = "Leaderboard.txt";
 
     String playerid;
     int playerscore;
@@ -18,7 +18,6 @@ public class Leaderboard {
 
         BufferedReader reader;
         FileReader file;
-
 
         try{
             file = new FileReader(filename);
@@ -39,9 +38,7 @@ public class Leaderboard {
             ranking.sort(new SortByRollNo());
 
             reader.close();
-        }
-
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Couldn't find file.");
         } catch (IOException e) {
             e.printStackTrace();

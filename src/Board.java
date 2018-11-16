@@ -42,6 +42,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
     private Leaderboard leaderboard = new Leaderboard();
     String name;
+
     Board() {
 
         addKeyListener(new TAdapter());
@@ -167,7 +168,7 @@ public class Board extends JPanel implements Runnable, Commons {
 //        System.out.println(time);
 //        System.out.println(ufoTime);
 //        System.out.println(successfulShots);
-        System.out.println(deaths);
+//        System.out.println(deaths);
         message = "Game Over";
 
         if (deaths == NUMBER_OF_ALIENS_TO_DESTROY && level == 5) {
@@ -301,14 +302,14 @@ public class Board extends JPanel implements Runnable, Commons {
         String score = "Your score was: " + player.getPoints();
         g.drawString(score, (BOARD_WIDTH - metr.stringWidth(score)) / 2 - 2,
                 BOARD_WIDTH / 2 + 17);
-        Input input = new Input();
-        player.changeName(input.returnString());
-        name = player.getName();
-        input.changeString();
-        //Score sth = new Score(name,player.getPoints());
-//            sth.Serialize();
-//            leaderboard.addScore(sth);
 
+//        Input input = new Input();
+//        player.changeName(input.returnString());
+//        name = player.getName();
+//        input.changeString();
+//        Score sth = new Score(name,player.getPoints());
+//        sth.Serialize();
+//        leaderboard. addScore(sth);
 
         try {
             Thread.sleep(2000);
@@ -318,7 +319,7 @@ public class Board extends JPanel implements Runnable, Commons {
         }
 
         g.dispose();
-        setVisible(false);
+//        setVisible(false);
 
         FinishingPanel finishingPanel= new FinishingPanel(this);
     }
@@ -343,6 +344,7 @@ public class Board extends JPanel implements Runnable, Commons {
         g.drawString("Level "+ level, (BOARD_WIDTH - metrics.stringWidth(message)) / 2,
                 BOARD_WIDTH / 2);
 
+        g.dispose();
         if(ufo.isUfoActive()){
             newUfoTime();
             ufo.setUfoIsActive(false);

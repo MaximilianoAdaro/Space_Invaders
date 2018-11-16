@@ -15,21 +15,42 @@ public class StarterPanel extends JFrame implements  Commons {
         setTitle("Space Invaders");
         setBounds(590, 230, BOARD_WIDTH, BOARD_HEIGHT);
 
-        startButton = new JButton("Start Game");
-        buttonPanel = new JPanel(true);
+        //buttonPlayAgain
+        button();
 
-        startButton.setBounds(100, 100, 100, 100);
+        //panel
+        panel();
 
         buttonPanel.add(startButton);
-
-        buttonPanel.setBackground(new Color(0, 0, 0));
         add(buttonPanel);
-
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
 
+
+//        -HighScore-
+//
+//        highScore = new JButton("View HighScores");
+//        fieldsPanel = new JPanel();
+//        fieldsPanel.setLayout(new BoxLayout(fieldsPanel, 2));
+//
+//        fieldsPanel.add(highScore);
+//        add(fieldsPanel, BorderLayout.PAGE_START);
+
+    }
+
+    private void panel() {
+        buttonPanel = new JPanel(true);
+        buttonPanel.setLayout(null);
+        buttonPanel.setBackground(new Color(0, 0, 0));
+    }
+
+    private void button() {
+        startButton = new JButton("Start Game");
+        startButton.setLayout(null);
+        startButton.setBounds(120, 90, 100, 30);
+//        startButton.setBackground(new Color(112, 106, 37));
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -37,17 +58,6 @@ public class StarterPanel extends JFrame implements  Commons {
                 setVisible(false);
             }
         });
-
-/*
-        -HighScore-
-
-        highScore = new JButton("View HighScores");
-        fieldsPanel = new JPanel();
-        fieldsPanel.setLayout(new BoxLayout(fieldsPanel, 2));
-
-        fieldsPanel.add(highScore);
-        add(fieldsPanel, BorderLayout.PAGE_START);
-*/
 
     }
 
