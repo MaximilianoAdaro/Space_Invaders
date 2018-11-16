@@ -58,6 +58,9 @@ public class FinishingPanel extends JFrame implements Commons{
 
                 name=textName.getText();
                 System.out.println(name);
+
+                buttonSetText.setEnabled(false);
+                textName.setEnabled(false);
             }
         });
         buttonSetText.setVisible(true);

@@ -39,16 +39,18 @@ public class Board extends JPanel implements Runnable, Commons {
     private final String explImg = "src/images/explosion.png";
     private String message = "Game Over";
     private Thread animator;
+    SpaceInvaders spaceInvaders;
 
     private Leaderboard leaderboard = new Leaderboard();
     String name;
 
-    Board() {
+    Board(SpaceInvaders spaceInvader) {
 
         addKeyListener(new TAdapter());
         setFocusable(true);
         d = new Dimension(BOARD_WIDTH, BOARD_HEIGHT);
         setBackground(Color.black);
+        spaceInvaders=spaceInvader;
 
         newUfoTime();
         player = new Player();
@@ -322,6 +324,7 @@ public class Board extends JPanel implements Runnable, Commons {
 //        setVisible(false);
 
         FinishingPanel finishingPanel= new FinishingPanel(this);
+        spaceInvaders.setVisible(false);
     }
 
     private void levelUp() {

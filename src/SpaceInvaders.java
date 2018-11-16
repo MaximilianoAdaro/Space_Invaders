@@ -17,7 +17,7 @@ public class SpaceInvaders extends JFrame implements Commons {
         panel.add(boton);
         add(panel);
 */
-        add(new Board());
+        add(new Board(this));
         setTitle("Space Invaders");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(BOARD_WIDTH, BOARD_HEIGHT);
