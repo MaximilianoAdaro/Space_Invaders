@@ -9,6 +9,7 @@ public class StarterPanel extends JFrame implements  Commons {
 //    private JButton highScore;
     private JPanel buttonPanel;
     private JButton startButton;
+    private JLabel labelSpaceInvaders;
     List<String> ranking;
 
     private boolean active=true;
@@ -21,15 +22,29 @@ public class StarterPanel extends JFrame implements  Commons {
         //buttonPlayAgain
         button();
 
+        //labelSpaceInvaders
+        labelSpaceInvaders();
 
         //panel
         panel();
 
         buttonPanel.add(startButton);
+        buttonPanel.add(labelSpaceInvaders);
         add(buttonPanel);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    private void labelSpaceInvaders() {
+        labelSpaceInvaders= new JLabel("Space Invaders");
+        labelSpaceInvaders.setBackground(Color.green);
+        labelSpaceInvaders.setForeground(Color.green);
+        labelSpaceInvaders.setLayout(null);
+        labelSpaceInvaders.setEnabled(true);
+        Font auxFont=labelSpaceInvaders.getFont();
+        labelSpaceInvaders.setFont(new Font(auxFont.getFontName(), auxFont.getStyle(), 28));
+        labelSpaceInvaders.setBounds(75, 90, 300, 30);
     }
 
 
@@ -42,7 +57,7 @@ public class StarterPanel extends JFrame implements  Commons {
     private void button() {
         startButton = new JButton("Start Game");
         startButton.setLayout(null);
-        startButton.setBounds(120, 60, 100, 30);
+        startButton.setBounds(120, 160, 100, 30);
 //        startButton.setBackground(new Color(112, 106, 37));
         startButton.addActionListener(new ActionListener() {
             @Override

@@ -325,6 +325,7 @@ public class Board extends JPanel implements Runnable, Commons {
                 e.printStackTrace();
             }
         }
+
         name=finishingPanel.getName();
         int points= finishingPanel.getScore();
         Score sth = new Score(name,points);

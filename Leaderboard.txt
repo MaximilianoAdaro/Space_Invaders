@@ -1,10 +1,10 @@
-da:456
-noesnull:380
-null:300
+dad:456
+Maxii:380
+notanull:300
+MaxiA:210
 asd:170
-MasciPiola:150
-wfv:120
-erg:100
-nuevoDan79:100
-masisiempre100:90
-Numa is Gay:90
+asereje:170
+NumaPiola:150
+Can:120
+maxiiii:120
+hector:100
