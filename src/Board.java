@@ -305,13 +305,6 @@ public class Board extends JPanel implements Runnable, Commons {
         g.drawString(score, (BOARD_WIDTH - metr.stringWidth(score)) / 2 - 2,
                 BOARD_WIDTH / 2 + 17);
 
-//        Input input = new Input();
-//        player.changeName(input.returnString());
-//        name = player.getName();
-//        input.changeString();
-//        Score sth = new Score(name,player.getPoints());
-//        sth.Serialize();
-//        leaderboard. addScore(sth);
 
         try {
             Thread.sleep(2000);
@@ -325,6 +318,18 @@ public class Board extends JPanel implements Runnable, Commons {
 
         FinishingPanel finishingPanel= new FinishingPanel(this);
         spaceInvaders.setVisible(false);
+        while(finishingPanel.isStillActive()){
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        name=finishingPanel.getName();
+        int points= finishingPanel.getScore();
+        Score sth = new Score(name,points);
+        sth.Serialize();
+        Leaderboard. addScore(sth);
     }
 
     private void levelUp() {

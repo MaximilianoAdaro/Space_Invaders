@@ -5,13 +5,13 @@ import java.util.List;
 
 public class Leaderboard {
 
-    List<Score> ranking;
+    static List<Score> ranking;
 
-    String filename = "Leaderboard.txt";
+    static String filename = "Leaderboard.txt";
 
-    String playerid;
-    int playerscore;
-    int scoreSize = 5;
+    static String playerid;
+    static int playerscore;
+    static int scoreSize = 5;
 
     public Leaderboard(){
         ranking = new ArrayList<>(scoreSize);
@@ -45,11 +45,13 @@ public class Leaderboard {
         }
     }
 
-    public boolean isHigher(Score score)
-    {
-        Score last = ranking.get(ranking.size()-1);
-        int number = last.getPoints();
-        return (score.getPoints()> number);
+    public static boolean isHigher(Score score) {
+        if((ranking.size())>0 ) {
+            Score last = ranking.get(ranking.size() - 1);
+            int number = last.getPoints();
+            return (score.getPoints() > number);
+        }
+        return true;
     }
 
     public List<Score> getRanking(){
@@ -57,10 +59,10 @@ public class Leaderboard {
     }
 
 
-    public void addScore(Score score){
+    public static void addScore(Score score){
         if (isHigher(score)){
 
-            ranking.add(ranking.size()-1,score);
+            ranking.add(score);
 
             ranking.sort(new SortByRollNo());
 
@@ -70,7 +72,7 @@ public class Leaderboard {
     }
 
 
-    public void save(List<Score> scores) {
+    public static void save(List<Score> scores) {
         FileWriter file;
         BufferedWriter buffer;
 
@@ -80,8 +82,9 @@ public class Leaderboard {
             buffer = new BufferedWriter(file);
 
             for (int i = 0; i < ranking.size(); i++) {
-                buffer.write(ranking.get(i).Serialize());
+                buffer.write(ranking.get(i).Serialize()+"\n");
             }
+            buffer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

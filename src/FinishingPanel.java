@@ -136,4 +136,8 @@ public class FinishingPanel extends JFrame implements Commons{
     public String getName() {
         return name;
     }
+
+    public int getScore() {
+        return score;
+    }
 }
